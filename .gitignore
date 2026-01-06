@@ -1,0 +1,22 @@
+# Obsidian 插件代码
+.obsidian/plugins/obsidian-excalidraw-plugin/main.js
+.obsidian/plugins/obsidian-excalidraw-plugin/styles.css
+.obsidian/plugins/*/data.json
+Excalidraw/.obsidian/plugins/obsidian-excalidraw-plugin/main.js
+Excalidraw/.obsidian/plugins/obsidian-excalidraw-plugin/styles.css
+Notes/.obsidian/plugins/obsidian-excalidraw-plugin/main.js
+Notes/.obsidian/plugins/obsidian-excalidraw-plugin/styles.css
+
+# 工作区布局
+.obsidian/workspace*.json
+Excalidraw/.obsidian/workspace*.json
+Notes/.obsidian/workspace*.json
+
+# 系统文件
+.DS_Store
+
+# macOS
+._*
+
+# 临时文件
+.obsidian/trash
