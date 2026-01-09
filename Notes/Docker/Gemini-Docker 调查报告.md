@@ -6,15 +6,15 @@
 
 ## 1.1 "依赖地狱"与环境一致性的挑战
 
-在 Docker 普及之前，软件开发面临着著名的"矩阵地狱"问题。开发人员在本地环境（通常是 macOS 或 Windows）编写代码，依赖特定版本的运行时（Runtime）、库文件（Libraries）和配置文件。然而，测试环境和生产环境往往运行着不同版本的操作系统（如 CentOS、Debian），安装了不同版本的依赖库。这种环境的不一致性导致了经典的"在我的机器上能跑"的困境，迫使运维团队花费大量时间调试由于环境差异引发的 Bug，严重阻碍了软件的迭代速度。
+在 Docker 普及之前，软件开发面临着著名的"矩阵地狱"问题。<font color="#00b0f0">开发人员在本地环境（通常是 macOS 或 Windows）编写代码，依赖特定版本的运行时（Runtime）、库文件（Libraries）和配置文件</font>。然而，测试环境和生产环境往往运行着不同版本的操作系统（如 CentOS、Debian），安装了不同版本的依赖库。<font color="#00b0f0">这种环境的不一致性导致了经典的"在我的机器上能跑"的困境，迫使运维团队花费大量时间调试由于环境差异引发的 Bug，严重阻碍了软件的迭代速度</font>。
 
-传统的解决方案是编写详尽的部署文档或使用配置管理工具（如 Puppet、Chef、Ansible）来标准化环境。然而，这些工具只能尽量逼近环境一致性，无法从根本上保证完全一致，因为它们仍然是在一个可变的宿主操作系统上进行修补。Docker 的出现通过引入标准化的交付单元——镜像（Image），彻底改变了这一局面。Docker 将应用代码及其所有依赖（包括操作系统库、配置文件、运行时环境）打包成一个不可变的二进制制品，确保了应用在任何支持 Docker 的平台上都能以完全相同的行为运行。
+传统的解决方案是编写详尽的部署文档或使用配置管理工具（如 Puppet、Chef、Ansible）来标准化环境。然而，这些工具只能尽量逼近环境一致性，无法从根本上保证完全一致，因为它们仍然是在一个可变的宿主操作系统上进行修补。<font color="#00b0f0">Docker 的出现通过引入标准化的交付单元——镜像（Image），彻底改变了这一局面</font>。<font color="#00b0f0">Docker 将应用代码及其所有依赖（包括操作系统库、配置文件、运行时环境）打包成一个不可变的二进制制品</font>，确保了应用在任何支持 Docker 的平台上都能以完全相同的行为运行。
 
 ## 1.2 容器化技术的历史渊源与 Docker 的革新
 
 容器技术并非 Docker 的原创。其底层核心技术——Linux 容器（LXC）——早在 Docker 诞生之前就已经存在。LXC 利用 Linux 内核的命名空间（Namespaces）和控制组（Cgroups）特性，实现了进程级的隔离。然而，LXC 的使用门槛极高，需要深厚的内核知识，且缺乏标准化的镜像分发机制。
 
-Docker 的伟大之处在于它并不是发明了容器，而是使容器大众化和标准化。Docker 引入了分层镜像文件系统（Union File System）、声明式的构建文件（Dockerfile）以及中心化的镜像仓库（Registry），构建了一个完整的生态系统。这使得开发者无需关心底层的内核参数，只需通过简单的 docker run 命令即可启动应用。根据分析，Docker 的核心价值在于它定义了云计算时代的"集装箱"标准，使得软件交付像物理物流一样高效、可预测。
+Docker 的伟大之处在于它并不是发明了容器，而是使容器大众化和标准化。<font color="#00b0f0">Docker 引入了分层镜像文件系统（Union File System）、声明式的构建文件（Dockerfile）以及中心化的镜像仓库（Registry），构建了一个完整的生态系统</font>。这使得开发者无需关心底层的内核参数，只需通过简单的 docker run 命令即可启动应用。根据分析，Docker 的核心价值在于它定义了云计算时代的"集装箱"标准，使得软件交付像物理物流一样高效、可预测。
 
 ## 2. 核心架构深度解析：虚拟化与容器化的本质差异
 
@@ -24,7 +24,7 @@ Docker 的伟大之处在于它并不是发明了容器，而是使容器大众�
 
 传统的虚拟机（VM）技术，如 VMware ESXi、Microsoft Hyper-V 或 KVM，属于硬件级虚拟化。它们通过通过一个中间层——Hypervisor（虚拟机监控器）——来模拟物理硬件（CPU、内存、网卡、磁盘）。在 Hypervisor 之上，每个虚拟机都必须安装一个完整的客户操作系统（Guest OS）。这意味着，如果在一台物理服务器上运行 10 个虚拟机，就需要运行 10 个完整的操作系统内核，这将消耗大量的 CPU 和内存资源用于操作系统自身的运行，而非业务应用。
 
-相比之下，Docker 容器属于操作系统级虚拟化。容器并不模拟硬件，也不运行独立的 Guest OS。所有容器共享宿主机的 Linux 内核（Host OS Kernel）。Docker 引擎（Docker Engine）利用内核特性在用户空间（User Space）隔离出多个独立的执行环境。
+相比之下，<font color="#00b0f0">Docker 容器属于操作系统级虚拟化</font>。<font color="#00b0f0">容器并不模拟硬件，也不运行独立的 Guest OS。所有容器共享宿主机的 Linux 内核（Host OS Kernel）</font>。<font color="#00b0f0">Docker 引擎（Docker Engine）利用内核特性在用户空间（User Space）隔离出多个独立的执行环境</font>。
 
 下表总结了两者在架构层面的关键差异：
 
@@ -36,31 +36,31 @@ Docker 的伟大之处在于它并不是发明了容器，而是使容器大众�
 | 启动时间 | 分钟级 (需完整的 OS 引导流程) | 毫秒/秒级 (仅启动进程) | 容器适合弹性伸缩和微服务 |
 | 存储占用 | GB 级 (包含完整 OS 镜像) | MB 级 (仅包含应用差异层) | 容器传输和分发效率极高 |
 
-根据数据，在相同的硬件资源下，容器的部署密度通常是虚拟机的 10 倍以上。这种高密度特性使得 Docker 成为微服务架构（Microservices）的天然载体，企业可以在有限的计算资源中运行成百上千个微服务实例。
+根据数据，在相同的硬件资源下，容器的部署密度通常是虚拟机的 10 倍以上。<font color="#00b0f0">这种高密度特性使得 Docker 成为微服务架构（Microservices）的天然载体</font>，企业可以在有限的计算资源中运行成百上千个微服务实例。
 
 ## 2.2 Linux 内核的基石：Namespaces 与 Cgroups
 
-Docker 的"魔法"实际上是由 Linux 内核的两大原语支撑的：Namespaces 提供隔离，Cgroups 提供限制。对于想要深入理解 Docker 的学习者，必须理解这两个概念。
+<font color="#00b0f0">Docker 的"魔法"实际上是由 Linux 内核的两大原语支撑的：Namespaces 提供隔离，Cgroups 提供限制</font>。对于想要深入理解 Docker 的学习者，必须理解这两个概念。
 
 ## 2.2.1 Namespaces（命名空间）：构建隔离的墙
 
-Namespaces 使得容器内的进程看起来像是运行在一个独立的系统中，拥有自己独立的全局系统资源视图。Linux 内核提供了多种类型的 Namespaces，Docker 组合使用它们来实现全方位的隔离：
+<font color="#00b0f0">Namespaces 使得容器内的进程看起来像是运行在一个独立的系统中，拥有自己独立的全局系统资源视图</font>。Linux 内核提供了多种类型的 Namespaces，Docker 组合使用它们来实现全方位的隔离：
 
-- PID Namespace：进程隔离。容器内的进程拥有独立的进程 ID 编号空间。容器内的主进程（Entrypoint）PID 通常为 1，而在宿主机上，该进程可能对应 PID 12345。这使得容器无法看到或杀死宿主机的其他进程。
+- <font color="#00b0f0">PID Namespace：进程隔离</font>。容器内的进程拥有独立的进程 ID 编号空间。容器内的主进程（Entrypoint）PID 通常为 1，而在宿主机上，该进程可能对应 PID 12345。这使得容器无法看到或杀死宿主机的其他进程。
 
-- NET Namespace：网络隔离。每个容器拥有独立的网络协议栈，包括网卡（veth device）、IP 地址、路由表和 iptables 规则。这解释了为什么容器默认无法直接被外部访问，必须通过端口映射。
+- <font color="#00b0f0">NET Namespace：网络隔离</font>。每个容器拥有独立的网络协议栈，包括网卡（veth device）、IP 地址、路由表和 iptables 规则。<font color="#00b0f0">这解释了为什么容器默认无法直接被外部访问，必须通过端口映射</font>。
 
-- MNT Namespace：文件系统隔离。每个容器有自己独立的根文件系统（rootfs），挂载点的变化仅在容器内可见，互不影响。
+- <font color="#00b0f0">MNT Namespace：文件系统隔离</font>。每个容器有自己独立的根文件系统（rootfs），挂载点的变化仅在容器内可见，互不影响。
 
-- UTS Namespace：主机名隔离。允许容器拥有独立的主机名（Hostname）和域名，这对网络标识至关重要。
+- <font color="#00b0f0">UTS Namespace：主机名隔离</font>。允许容器拥有独立的主机名（Hostname）和域名，这对网络标识至关重要。
 
-- IPC Namespace：进程间通信隔离。防止容器内的进程通过共享内存、信号量等方式与宿主机或其他容器通信。
+- <font color="#00b0f0">IPC Namespace</font><font color="#00b0f0">：进程间通信隔离</font>。防止容器内的进程通过共享内存、信号量等方式与宿主机或其他容器通信。
 
-- USER Namespace：用户隔离。允许容器内的 root 用户（UID 0）映射为宿主机上的非特权用户（如 UID 1000）。这是提升容器安全性的关键特性，即使攻击者攻破了容器获得 root 权限，在宿主机上他也只是一个普通用户。
+- <font color="#00b0f0">USER Namespace：用户隔离</font>。允许容器内的 root 用户（UID 0）映射为宿主机上的非特权用户（如 UID 1000）。这是提升容器安全性的关键特性，即使攻击者攻破了容器获得 root 权限，在宿主机上他也只是一个普通用户。
 
 ## 2.2.2 Cgroups（控制组）：设定资源的界
 
-如果说 Namespaces 是"墙"，防止你看不到邻居，那么 Cgroups 就是"配额"，防止你抢占邻居的资源。Cgroups（Control Groups）允许 Docker 限制容器可以使用的资源上限，包括：
+如果说 Namespaces 是"墙"，防止你看不到邻居，那么 Cgroups 就是"配额"，防止你抢占邻居的资源。<font color="#00b0f0">Cgroups（Control Groups）允许 Docker 限制容器可以使用的资源上限</font>，包括：
 
 - CPU：限制 CPU 使用率或核心数（如 --cpus="1.5"）。
 
@@ -72,17 +72,17 @@ Namespaces 使得容器内的进程看起来像是运行在一个独立的系统
 
 ## 3. Docker 引擎架构：Client-Server 模型的运作机制
 
-Docker 并非一个单一的可执行文件，而是一个复杂的分布式系统，遵循标准的客户端-服务器（C/S）架构。了解这一架构有助于排查诸如"无法连接到 Docker Daemon"之类的常见错误。
+Docker 并非一个单一的可执行文件，而是一个复杂的分布式系统，遵循标准的<font color="#00b0f0">客户端-服务器（C/S）架构</font>。了解这一架构有助于排查诸如"无法连接到 Docker Daemon"之类的常见错误。
 
 ## 3.1 Docker Client (客户端)
 
-Docker Client（通常是命令行工具 docker）是用户与 Docker 系统交互的接口。它本身不执行任何容器操作，而是将用户的指令（如 docker build, docker pull, docker run）解析为 REST API 请求，并发送给 Docker Daemon。
+<font color="#00b0f0">Docker Client（通常是命令行工具 docker）是用户与 Docker 系统交互的接口。它本身不执行任何容器操作，而是将用户的指令（如 docker build, docker pull, docker run）解析为 REST API 请求，并发送给 Docker Daemon</font>。
 
 Client 可以连接本地的 Daemon，也可以通过网络连接远程服务器上的 Daemon。这意味着你可以在本地笔记本电脑上的 Client 控制云端服务器上的 Docker 引擎。
 
 ## 3.2 Docker Daemon (守护进程)
 
-dockerd 是运行在宿主机后台的长期进程，是 Docker 架构的中心控制点。它的职责极其繁重：
+<font color="#00b0f0">dockerd 是运行在宿主机后台的长期进程，是 Docker 架构的中心控制点</font>。它的职责极其繁重：
 
 1. API Server：监听 REST API 请求（默认通过 UNIX Socket /var/run/docker.sock，也可配置 TCP 端口）。
 
@@ -94,7 +94,7 @@ dockerd 是运行在宿主机后台的长期进程，是 Docker 架构的中心�
 
 在早期的 Docker 版本中，Daemon 是一个单体程序。但为了遵循"机制与策略分离"的原则，并支持 OCI（Open Container Initiative）标准，现代 Docker 架构进行了高度模块化拆分：
 
-- containerd：从 Docker Daemon 中剥离出来的行业标准容器运行时。Daemon 将容器管理的具体任务委托给 containerd。containerd 负责镜像的拉取、存储以及容器生命周期的管理（启动、停止、暂停）。它是一个守护进程，生命周期独立于 Docker Daemon，这意味着重启 Docker Daemon（例如升级 Docker 版本）不会导致运行中的容器中断。
+- containerd：从 Docker Daemon 中剥离出来的行业标准容器运行时。<font color="#00b0f0">Daemon 将容器管理的具体任务委托给 containerd</font>。<font color="#00b0f0">containerd 负责镜像的拉取、存储以及容器生命周期的管理（启动、停止、暂停）</font>。<font color="#00b0f0">它是一个守护进程，生命周期独立于 Docker Daemon，这意味着重启 Docker Daemon（例如升级 Docker 版本）不会导致运行中的容器中断</font>。
 
 - runc：这是最底层的执行器，实际上是它在与 Linux 内核交互。containerd 接收到启动容器的请求后，会创建 runc 实例。runc 根据 OCI 规范（config.json）配置 Namespaces 和 Cgroups，启动容器进程。
 
@@ -116,11 +116,11 @@ dockerd 是运行在宿主机后台的长期进程，是 Docker 架构的中心�
 
 ## 4. 镜像技术：分层文件系统与构建原理
 
-Docker 镜像（Image）是容器的静态模板，也是 Docker 能够实现"一次构建，到处运行"的核心。理解镜像的构成对于优化构建速度和减小存储占用至关重要。
+<font color="#00b0f0">Docker 镜像（Image）是容器的静态模板，也是 Docker 能够实现"一次构建，到处运行"的核心</font>。理解镜像的构成对于优化构建速度和减小存储占用至关重要。
 
 ## 4.1 Union File System (联合文件系统) 与分层机制
 
-Docker 镜像并非一个巨大的单一文件，而是由多个只读层（Read-only Layers）堆叠而成的。这种结构依赖于联合文件系统（UnionFS，现代 Linux 通常使用 Overlay2 驱动）。
+<font color="#00b0f0">Docker 镜像并非一个巨大的单一文件，而是由多个只读层（Read-only Layers）堆叠而成的</font>。这种结构依赖于联合文件系统（UnionFS，现代 Linux 通常使用 Overlay2 驱动）。
 
 - Base Image (基础镜像)：镜像的最底层，通常是操作系统的精简版，如 ubuntu:20.04 或 alpine:3.14。
 
@@ -132,25 +132,25 @@ Docker 镜像并非一个巨大的单一文件，而是由多个只读层（Read
 
 镜像层是只读的（Immutable）。那么，容器如何修改文件呢？
 
-当容器启动时，Docker 会在镜像层栈的最顶端添加一个薄薄的可读写层，称为"容器层"。
+<font color="#00b0f0">当容器启动时，Docker 会在镜像层栈的最顶端添加一个薄薄的可读写层，称为"容器层"</font>。
 
-- 读取文件：如果容器需要读取文件，它会从顶层向下穿透查找，直到在某一层找到该文件。
+- 读取文件：如果容器需要读取文件，它会<font color="#00b0f0">从顶层向下穿透查找</font>，直到在某一层找到该文件。
 
-- 修改文件（Copy-on-Write）：如果容器需要修改位于底层镜像中的只读文件，Docker 不会直接修改原文件（因为它是只读的，且被其他容器共享）。相反，Docker 会将该文件从只读层"复制"到顶部的可读写层，然后对副本进行修改。
+- 修改文件（Copy-on-Write）：如果容器需要修改位于底层镜像中的只读文件，Docker 不会直接修改原文件（因为它是只读的，且被其他容器共享）。相反，<font color="#00b0f0">Docker 会将该文件从只读层"复制"到顶部的可读写层，然后对副本进行修改</font>。
 
-- 删除文件：在容器中删除文件实际上是在可读写层创建一个"白障"（Whiteout）标记，屏蔽了底层的文件，而非真正删除了底层数据。
+- 删除文件：<font color="#00b0f0">在容器中删除文件实际上是在可读写层创建一个"白障"（Whiteout）标记，屏蔽了底层的文件，而非真正删除了底层数据</font>。
 
-这种机制意味着，容器层的生命周期与容器绑定。一旦容器被删除，可读写层及其中的数据也会随之消失。因此，持久化数据绝对不能存储在容器层中。
+这种机制意味着，<font color="#00b0f0">容器层的生命周期与容器绑定</font>。<font color="#00b0f0">一旦容器被删除，可读写层及其中的数据也会随之消失。因此，持久化数据绝对不能存储在容器层中</font>。
 
 ## 4.3 镜像仓库 (Registry) 与标签 (Tag)
 
 镜像构建完成后，需要分发到其他机器。
 
-- Registry：存储镜像的服务端。Docker Hub 是默认的公共 Registry。企业通常部署私有 Registry（如 Harbor, JFrog Artifactory）或使用云厂商服务（AWS ECR, Azure ACR）。
+- Registry：存储镜像的服务端。<font color="#00b0f0">Docker Hub 是默认的公共 Registry</font>。企业通常部署私有 Registry（如 Harbor, JFrog Artifactory）或使用云厂商服务（AWS ECR, Azure ACR）。
 
 - Repository：特定应用的镜像集合（如 nginx）。
 
-- Tag：镜像的版本标识。latest 是默认标签，但它并不代表"最新"，只是一个约定俗成的名字。最佳实践：在生产环境中，应始终使用明确的版本号标签（如 nginx:1.19.6），避免使用 latest，因为 latest 指向的内容可能随时变化，导致不可预测的部署结果。
+- Tag：镜像的版本标识。latest 是默认标签，但它并不代表"最新"，只是一个约定俗成的名字。最佳实践：<font color="#00b0f0">在生产环境中，应始终使用明确的版本号标签（如 nginx:1.19.6），避免使用 latest，因为 latest 指向的内容可能随时变化，导致不可预测的部署结果</font>。
 
 ## 5. 实战指南：安装、CLI 操作与生命周期管理
 
@@ -160,29 +160,29 @@ Docker 的安装因操作系统而异，这直接影响了其性能和使用方�
 
 - Linux (原生)：推荐方式。Docker 直接运行在宿主内核上，性能最好，I/O 无损耗。安装需配置 yum/apt 源，安装 docker-ce 包。
 
-- Windows/macOS (Docker Desktop)：由于 Docker 依赖 Linux 内核，Windows 和 macOS 必须运行一个轻量级虚拟机（Linux VM）来托管 Docker Daemon。
+- Windows/macOS (Docker Desktop)：由于 <font color="#00b0f0">Docker 依赖 Linux 内核</font>，<font color="#00b0f0">Windows 和 macOS 必须运行一个轻量级虚拟机（Linux VM）来托管 Docker Daemon</font>。
 
     - Windows: 使用 WSL 2 (Windows Subsystem for Linux 2) 后端。WSL 2 是一个高度优化的轻量级 VM，Docker Daemon 运行其中。虽然体验无缝，但在处理跨 OS 文件系统挂载（如将 Windows 目录挂载到容器）时，I/O 性能远低于 Linux 原生环境。
 
-    - macOS: 使用 HyperKit 或 Apple Virtualization Framework 运行 Linux VM。同样存在文件系统桥接的性能开销。
+    - macOS: <font color="#00b0f0">使用 HyperKit 或 Apple Virtualization Framework 运行 Linux VM。同样存在文件系统桥接的性能开销</font>。
 
 ## 5.2 容器生命周期管理：状态机的流转
 
 容器的生命周期包含五个核心状态，理解这些状态对于运维至关重要：
 
-1. Created (已创建)：docker create 命令仅分配容器配置和 ID，准备好文件系统层，但尚未启动进程。
+1. <font color="#00b0f0">Created (已创建)</font>：docker create 命令仅分配容器配置和 ID，准备好文件系统层，但尚未启动进程。
 
-2. Running (运行中)：docker start 或 docker run 触发。进程在 CPU 上执行。
+2. <font color="#00b0f0">Running (运行中)</font>：docker start 或 docker run 触发。进程在 CPU 上执行。
 
-3. Paused (已暂停)：docker pause 利用 cgroups 的 freezer 子系统挂起进程。进程仍在内存中，但不会被调度分配 CPU 时间片。这与"停止"不同，恢复速度极快。
+3. <font color="#00b0f0">Paused (已暂停)</font>：docker pause 利用 cgroups 的 freezer 子系统挂起进程。进程仍在内存中，但不会被调度分配 CPU 时间片。这与"停止"不同，恢复速度极快。
 
-4. Stopped (已停止)：docker stop 触发。这是容器生命周期的终点之一。
+4. <font color="#00b0f0">Stopped (已停止)</font>：docker stop 触发。<font color="#00b0f0">这是容器生命周期的终点之一</font>。
 
     - 优雅退出 (Graceful Shutdown): docker stop 会首先发送 SIGTERM (Signal 15) 信号给容器内的主进程 (PID 1)。这给了应用一个机会来完成收尾工作（如关闭数据库连接、保存状态）。默认等待 10 秒。
 
     - 强制杀死 (Force Kill): 如果 10 秒后进程仍未退出，Docker 会发送 SIGKILL (Signal 9)，内核强制终止进程，可能导致数据损坏。
 
-5. Deleted (已删除)：docker rm 移除容器的元数据和读写层。
+5. <font color="#00b0f0">Deleted (已删除)</font>：docker rm 移除容器的元数据和读写层。
 
 ## 5.3 核心 CLI 命令详解与场景
 
@@ -190,9 +190,9 @@ Docker 的安装因操作系统而异，这直接影响了其性能和使用方�
 
 - 运行容器：docker run -d -p 80:80 --name web nginx
 
-    - -d: 后台模式 (Detached)，容器在后台运行，终端不会被阻塞。
+    - <font color="#00b0f0">-d: 后台模式 (Detached)，容器在后台运行，终端不会被阻塞</font>。
 
-    - -p: 端口映射 (Publish)。将宿主机的 80 端口映射到容器的 80 端口。没有这个参数，外部无法访问容器。
+    - <font color="#00b0f0">-p: 端口映射 (Publish)。将宿主机的 80 端口映射到容器的 80 端口。没有这个参数，外部无法访问容器</font>。
 
     - --name: 给容器起个名字，方便后续管理。
 
@@ -204,7 +204,7 @@ Docker 的安装因操作系统而异，这直接影响了其性能和使用方�
 
 - 清理资源：
 
-    - docker system prune: 这是一个"核武器"级命令，用于一键清理所有停止的容器、未被使用的网络和悬空的镜像（Dangling Images），释放磁盘空间。
+    - <font color="#00b0f0">docker system prune: 这是一个"核武器"级命令，用于一键清理所有停止的容器、未被使用的网络和悬空的镜像（Dangling Images），释放磁盘空间</font>。
 
 ## 6. Dockerfile 最佳实践与构建优化
 
@@ -259,20 +259,20 @@ CMD ["./myapp"]
 
 ## 7. 数据持久化：Volume 与存储策略
 
-容器是"易失"的，但数据必须是持久的。Docker 提供了多种挂载机制来解决这一矛盾。
+<font color="#00b0f0">容器是"易失"的，但数据必须是持久的</font>。Docker 提供了多种挂载机制来解决这一矛盾。
 
 ## 7.1 Volume (数据卷) vs Bind Mount (绑定挂载)
 
 这是最容易混淆的概念，必须清晰区分。
 
-| 特性 | Volume (数据卷) | Bind Mount (绑定挂载) |
-|---|---|---|
-| 存储位置 | 受 Docker 管理 (/var/lib/docker/volumes/) | 宿主机文件系统的任意路径 |
-| 创建方式 | docker volume create 或隐式创建 | 必须引用宿主机现有路径 |
-| 移植性 | 高。不依赖宿主机目录结构，易于迁移 | 低。依赖宿主机特定路径，跨 OS 易出错 |
-| 性能 | 极高。Docker 原生驱动，Linux 下无开销 | 较低。尤其在 Windows/Mac 上有 VM 转换开销 |
-| 权限管理 | Docker 自动处理，较少出现权限问题 | 常见 UID/GID 不匹配导致的 Permission Denied |
-| 最佳场景 | 数据库存储、生产环境数据持久化 | 本地开发代码热重载、配置文件注入 |
+| 特性   | Volume (数据卷)                                 | Bind Mount (绑定挂载)                             |
+| ---- | -------------------------------------------- | --------------------------------------------- |
+| 存储位置 | 受 Docker 管理 (/var/lib/docker/volumes/)       | 宿主机文件系统的任意路径                                  |
+| 创建方式 | docker volume create 或隐式创建                   | 必须引用宿主机现有路径                                   |
+| 移植性  | 高。不依赖宿主机目录结构，易于迁移                            | 低。依赖宿主机特定路径，跨 OS 易出错                          |
+| 性能   | 极高。Docker 原生驱动，Linux 下无开销                    | 较低。尤其在 Windows/Mac 上有 VM 转换开销                 |
+| 权限管理 | Docker 自动处理，较少出现权限问题                         | 常见 UID/GID 不匹配导致的 Permission Denied           |
+| 最佳场景 | <font color="#00b0f0">数据库存储、生产环境数据持久化</font> | <font color="#00b0f0">本地开发代码热重载、配置文件注入</font> |
 
 ## 7.2 生产环境存储策略
 
@@ -284,7 +284,7 @@ CMD ["./myapp"]
 
 ## 8. 容器网络模型 (CNM)：连通性的奥秘
 
-Docker 网络解决了"容器如何相互通信"以及"外部如何访问容器"的问题。
+<font color="#00b0f0">Docker 网络解决了"容器如何相互通信"以及"外部如何访问容器"的问题</font>。
 
 ## 8.1 核心网络驱动
 
@@ -322,7 +322,7 @@ Docker 的内置 DNS 服务器会自动将 my-redis 解析为 Redis 容器的动
 
 ## 9. Docker Compose：微服务编排入门
 
-当应用包含多个容器（Web + Database + Redis）时，手动执行一堆 docker run 命令是低效且易错的。Docker Compose 是官方提供的单机编排工具，体现了"基础设施即代码"（IaC）的理念。
+<font color="#00b0f0">当应用包含多个容器（Web + Database + Redis）时，手动执行一堆 docker run 命令是低效且易错的。Docker Compose 是官方提供的单机编排工具，体现了"基础设施即代码"（IaC）的理念</font>。
 
 ## 9.1 docker-compose.yml 结构解析
 
@@ -359,7 +359,7 @@ services:
 
 ## 10.1 最小权限原则 (Least Privilege)
 
-- 不要使用 Root：默认情况下，容器内进程以 root 运行。如果发生容器逃逸，攻击者将获得宿主机 root 权限。务必在 Dockerfile 中创建专用用户并切换 (USER appuser)。
+- 不要使用 Root：<font color="#00b0f0">默认情况下，容器内进程以 root 运行。如果发生容器逃逸，攻击者将获得宿主机 root 权限</font>。务必在 Dockerfile 中创建专用用户并切换 (USER appuser)。
 
 - Capabilities 裁剪：Linux Capabilities 将 root 权限细分为多个小权限。Docker 默认禁用了一些危险权限，但可以通过 --cap-drop all 进一步锁定，仅开启业务必需的权限。
 
@@ -373,7 +373,7 @@ services:
 
 ## 11. 结语：从 Docker 到云原生未来
 
-Docker 的出现标志着软件交付从"作坊式"走向"工业化"。对于初学者而言，掌握 Docker 不仅是学习一个工具，更是理解现代云原生架构（Cloud Native）的必经之路。
+Docker 的出现标志着软件交付从"作坊式"走向"工业化"。对于初学者而言，掌握 Docker 不仅是学习一个工具，更是理解现代<font color="#00b0f0">云原生架构</font>（Cloud Native）的必经之路。
 
 随着 Kubernetes（K8s）成为容器编排的事实标准，Docker 在集群层面的作用逐渐被 K8s 取代（K8s 甚至弃用了 Docker Shim，转而直接支持 containerd）。然而，Docker 作为开发环境的标准工具、镜像构建的标准格式（OCI Image）以及容器运行时的基石，其地位依然不可动摇。
 
