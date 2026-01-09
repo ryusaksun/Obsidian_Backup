@@ -265,9 +265,9 @@ MyVault/
  ### 统计信息
 
  - 总文件数: 100
- - 已格式化: 90
- - 待格式化: 10
- - 格式化率: 90%
+ - 已格式化: 100
+ - 待格式化: 0
+ - 格式化率: 100%
 
 ### 已格式化文件列表
 
@@ -360,13 +360,13 @@ MyVault/
 | Archive/研一上期末复习/软件体系结构/Gemini-第三章 设计与建模.md | ✅ 已格式化 | - |
 | Docker/Gemini-Docker 调查报告.md | ✅ 已格式化 | - |
 | Notes/健康/抗炎饮食与运动.md | ✅ 已格式化 | - |
-| Notes/Docker/Docker Compose.md | ⏳ 待格式化 | 新增 |
-| Notes/Docker/Docker Daemon.md | ⏳ 待格式化 | 新增 |
-| Notes/Docker/Docker Shim.md | ⏳ 待格式化 | 新增 |
-| Notes/Docker/containerd.md | ⏳ 待格式化 | 新增 |
-| Notes/Docker/runc.md | ⏳ 待格式化 | 新增 |
-| Notes/Docker/容器-容器的生命周期.md | ⏳ 待格式化 | 新增 |
-| Notes/Docker/容器-容器网络模型.md | ⏳ 待格式化 | 新增 |
-| Notes/Docker/数据持久化：Volume 和 Bind Mount 的区别.md | ⏳ 待格式化 | 新增 |
-| Notes/Docker/硬件虚拟化和操作系统虚拟化.md | ⏳ 待格式化 | 新增 |
-| Notes/Docker/镜像-联合文件系统.md | ⏳ 待格式化 | 新增 |
+| Notes/Docker/Docker Compose.md | ✅ 已格式化 | - |
+| Notes/Docker/Docker Daemon.md | ✅ 已格式化 | - |
+| Notes/Docker/Docker Shim.md | ✅ 已格式化 | - |
+| Notes/Docker/containerd.md | ✅ 已格式化 | - |
+| Notes/Docker/runc.md | ✅ 已格式化 | - |
+| Notes/Docker/容器-容器的生命周期.md | ✅ 已格式化 | - |
+| Notes/Docker/容器-容器网络模型.md | ✅ 已格式化 | - |
+| Notes/Docker/数据持久化：Volume 和 Bind Mount 的区别.md | ✅ 已格式化 | - |
+| Notes/Docker/硬件虚拟化和操作系统虚拟化.md | ✅ 已格式化 | - |
+| Notes/Docker/镜像-联合文件系统.md | ✅ 已格式化 | - |
