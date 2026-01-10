@@ -1,0 +1,69 @@
+`cat` 是 Linux 中最基础的文件处理命令之一，全称 **Concatenate**（连接）。
+
+## 1. cat 的核心用法
+
+虽然大家习惯用 `cat` 来**查看**文件，但它原本的设计初衷其实是**连接**文件。
+
+- **查看文件内容 (最常用)**
+    
+    bash
+    
+    `cat filename`
+    
+    _缺点_：如果文件很长，它会瞬间刷屏直到最后一行，你根本来不及看前面的内容。
+    
+- **合并文件 (本职工作)**
+    
+    bash
+    
+    `cat file1.txt file2.txt > merged.txt`
+    
+    _作用_：把 `file1` 和 `file2` 的内容头尾相接，拼成一个新的 `merged.txt`。
+    
+- **创建/写入文件**
+    
+    bash
+    
+    `cat > note.txt`
+    
+    _作用_：输入这行命令后，你打的字都会被存入 `note.txt`，直到你按 `Ctrl + D` 结束。
+    
+
+## 2. cat 与 more / less 的区别 (面试必问)
+
+这三个命令的本质区别在于**“对内存的使用”**和**“交互方式”**。
+
+|命令|特点|适用场景|形象比喻|
+|---|---|---|---|
+|**cat**|**一次性全读出来**|短文件 (几行~几十行)|像**倒水**一样，哗啦一下把内容全倒在你面前，不管你接不接得住。|
+|**more**|**一页一页显示**|中等长度文件|像**翻书**，只能往后翻，很难往前翻 (功能简陋)。|
+|**less**|**随意滚动加载**|长文件 / 巨型日志|像**Kindle**，随意上下翻页，而且**只加载你看到的那几页**，不占内存。|
+
+## 3. 为什么看日志千万别用 cat？
+
+如果一个服务器日志文件有 10GB：
+
+- 用 `cat`：它会尝试把 10GB 数据全部读入并打印到屏幕上。这不仅会导致**终端卡死**，还会瞬间占用大量磁盘 I/O 和内存，甚至可能把服务器搞挂。
+    
+- 用 `less`：它只会读取前几KB的数据显示给你看，**秒开**，对服务器几乎无压力。
+    
+
+## 总结
+
+- 看**短**文件（配置文件、只有几行的记录）：用 **`cat`**。
+    
+- 看**长**文件（日志、代码）：必须用 **`less`**。
+    
+- 想把两个文件**拼**起来：用 **`cat`**。
+    
+
+1. [https://www.runoob.com/linux/linux-comm-cat.html](https://www.runoob.com/linux/linux-comm-cat.html)
+2. [https://m.runoob.com/linux/linux-comm-cat.html](https://m.runoob.com/linux/linux-comm-cat.html)
+3. [https://blog.csdn.net/Moonlight_16/article/details/125523758](https://blog.csdn.net/Moonlight_16/article/details/125523758)
+4. [https://www.bandwagonhost.net/8126.html](https://www.bandwagonhost.net/8126.html)
+5. [https://go.lightnode.com/zh/tech/cat-linux](https://go.lightnode.com/zh/tech/cat-linux)
+6. [https://blog.csdn.net/longshengguoji/article/details/8233342](https://blog.csdn.net/longshengguoji/article/details/8233342)
+7. [https://cloud.tencent.com/developer/article/1837101](https://cloud.tencent.com/developer/article/1837101)
+8. [https://www.itbook.team/book/linux2/LINUXCanKaoShouCe/CAT.html](https://www.itbook.team/book/linux2/LINUXCanKaoShouCe/CAT.html)
+9. [https://www.ibm.com/docs/zh-tw/aix/7.3.0?topic=c-cat-command](https://www.ibm.com/docs/zh-tw/aix/7.3.0?topic=c-cat-command)
+10. [https://www.cnblogs.com/Hackerman/p/16011071.html](https://www.cnblogs.com/Hackerman/p/16011071.html)
