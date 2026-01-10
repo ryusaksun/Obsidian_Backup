@@ -273,9 +273,9 @@ MyVault/
  ### 统计信息
 
  - 总文件数: 105
- - 已格式化: 100
- - 待格式化: 5
- - 格式化率: 95.2%
+ - 已格式化: 105
+ - 待格式化: 0
+ - 格式化率: 100%
 
 ### 已格式化文件列表
 
@@ -378,8 +378,8 @@ MyVault/
 | Notes/Docker/数据持久化：Volume 和 Bind Mount 的区别.md | ✅ 已格式化 | - |
 | Notes/Docker/硬件虚拟化和操作系统虚拟化.md | ✅ 已格式化 | - |
 | Notes/Docker/镜像-联合文件系统.md | ✅ 已格式化 | - |
-| Notes/Linux/npm 相关知识.md | ⏳ 待格式化 | - |
-| Notes/Linux/Ubuntu 相关知识.md | ⏳ 待格式化 | - |
-| Notes/Linux/apt 相关内容.md | ⏳ 待格式化 | - |
-| Notes/Linux/Curl相关内容.md | ⏳ 待格式化 | - |
-| Notes/LLM/基础/梯度下降法.md | ⏳ 待格式化 | - |
+| Notes/Linux/npm 相关知识.md | ✅ 已格式化 | - |
+| Notes/Linux/Ubuntu 相关知识.md | ✅ 已格式化 | - |
+| Notes/Linux/apt 相关内容.md | ✅ 已格式化 | - |
+| Notes/Linux/Curl相关内容.md | ✅ 已格式化 | - |
+| Notes/LLM/基础/梯度下降法.md | ✅ 已格式化 | - |
