@@ -272,8 +272,8 @@ MyVault/
 
  ### 统计信息
 
- - 总文件数: 105
- - 已格式化: 105
+ - 总文件数: 112
+ - 已格式化: 112
  - 待格式化: 0
  - 格式化率: 100%
 
@@ -383,3 +383,10 @@ MyVault/
 | Notes/Linux/apt 相关内容.md | ✅ 已格式化 | - |
 | Notes/Linux/Curl相关内容.md | ✅ 已格式化 | - |
 | Notes/LLM/基础/梯度下降法.md | ✅ 已格式化 | - |
+| Notes/Linux/dpkg 的用法.md | ✅ 已格式化 | - |
+| Notes/Linux/grep 的用法.md | ✅ 已格式化 | - |
+| Notes/Linux/ps 的用法.md | ✅ 已格式化 | - |
+| Notes/Linux/管道符｜的用法.md | ✅ 已格式化 | - |
+| Notes/Linux/查看文档-less 的用法.md | ✅ 已格式化 | - |
+| Notes/Linux/查看文档-more 的用法.md | ✅ 已格式化 | - |
+| Notes/Linux/Ubuntu 和 Debian 的区别.md | ✅ 已格式化 | - |
