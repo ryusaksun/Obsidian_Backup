@@ -273,8 +273,8 @@ MyVault/
 
  ### 统计信息
 
- - 总文件数: 112
- - 已格式化: 112
+ - 总文件数: 117
+ - 已格式化: 117
  - 待格式化: 0
  - 格式化率: 100%
 
@@ -391,3 +391,8 @@ MyVault/
 | Notes/Linux/查看文档-less 的用法.md | ✅ 已格式化 | - |
 | Notes/Linux/查看文档-more 的用法.md | ✅ 已格式化 | - |
 | Notes/Linux/Ubuntu 和 Debian 的区别.md | ✅ 已格式化 | - |
+| Notes/Linux/echo 的用法.md | ✅ 已格式化 | - |
+| Notes/Linux/ip 命令.md | ✅ 已格式化 | - |
+| Notes/Linux/查看文档-cat 的用法.md | ✅ 已格式化 | - |
+| Notes/Linux/点开头的文件.md | ✅ 已格式化 | - |
+| Notes/Linux/重定向>和>>的用法.md | ✅ 已格式化 | - |
