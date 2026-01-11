@@ -34,19 +34,19 @@
 
 Ubuntu 严格遵循文件系统层级标准（Filesystem Hierarchy Standard, FHS），每个目录都有其特定的历史渊源和功能定义。
 
-| 目录路径  | 名称来源                            | 功能描述与深度解析                                                                                                                                                                                          |
-| ----- | ------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| /bin  | Binaries                        | <font color="#00b0f0">存放系统启动和单用户模式下必须具备的核心用户命令</font>（如 `ls`, `cp`, `mv`, `cat`）。这些命令对所有用户可用。<font color="#00b0f0">在现代 Ubuntu 系统中，`/bin` 通常作为指向 `/usr/bin` 的符号链接存在，反映了系统文件向 `/usr` 统一合并的趋势</font>。 |
-| /sbin | S**ystem **Bin**aries           | <font color="#00b0f0">存放系统管理员使用的系统管理命令</font>（如 `iptables`, `fdisk`, `reboot`）。普通用户通常不在其 PATH 环境变量中包含此目录，因为这些命令涉及系统核心配置。                                                                           |
-| /etc  | Et Cetera                       | 系统的神经中枢，<font color="#00b0f0">存放所有系统范围的配置文件</font>。名称源于早期 Unix 将"其他"文件归类于此，现已演变为 Host-specific system-wide configuration files 的标准位置。例如 `/etc/passwd`（用户库）、`/etc/network`（网络配置）等。                  |
-| /home | Home Directories                | 普通用户的个人主目录。每个用户拥有一个以其用户名命名的子目录（如 `/home/alice`），<font color="#00b0f0">用于存放个人数据和用户级配置文件（通常以 `.` 开头的隐藏文件）</font>。这是用户拥有完全写入权限的区域。                                                                    |
-| /root | Root Home                       | 系统管理员（超级用户）的主目录。为了防止在单用户模式下 `/home` 分区未挂载导致管理员无法访问其配置，Root 的主目录被直接置于根目录下，而不是 `/home/root`。                                                                                                         |
-| /var  | Variable Files                  | <font color="#00b0f0">存放系统中经常变化的数据文件</font>。这包括<font color="#00b0f0">系统日志（`/var/log`）、数据库文件（`/var/lib/mysql`）、网站内容（`/var/www`）以及邮件队列</font>。将 `/var` 单独分区是服务器运维的最佳实践，可防止因日志暴涨耗尽根分区空间导致系统崩溃。        |
-| /usr  | U**nix **S**ystem **R**esources | <font color="#00b0f0">系统中最庞大的目录之一，包含用户安装的应用程序、库文件、文档和源代码</font>。`/usr/bin` 存放大多数用户命令，`/usr/lib` 存放共享库。它类似于 Windows 的 `C:\Program Files`。                                                           |
-| /tmp  | T**e**mp**orary                 | <font color="#00b0f0">存放临时文件。系统重启时，该目录下的内容通常会被自动清除</font>。该目录通常对所有用户可写，但通过"粘滞位（Sticky Bit）"权限限制用户只能删除自己的文件。                                                                                        |
-| /dev  | Devices                         | <font color="#00b0f0">设备文件目录</font>。在 Linux 哲学中"一切皆文件"，硬件设备如硬盘（`/dev/sda`）、终端（`/dev/tty`）、空设备（`/dev/null`）都以文件形式存在于此，<font color="#00b0f0">允许软件通过标准文件 I/O 接口与硬件交互</font>。                          |
-| /proc | Process Information             | 一个虚拟文件系统（Pseudo-filesystem），不占用磁盘空间，而是存在于内存中。它提供内核数据结构的接口，如 `/proc/cpuinfo` 显示 CPU 信息，`/proc/meminfo` 显示内存状态。它是系统监控工具获取数据的主要来源。                                                                    |
-| /boot | Boot Loader Files               | <font color="#00b0f0">包含启动 Linux 系统所需的核心文件，如内核映像、初始 RAM 磁盘和 GRUB 引导加载程序配置</font>。                                                                                                                  |
+| 目录路径  | 名称来源                  | 功能描述与深度解析                                                                                                                                                                                          |
+| ----- | --------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| /bin  | Binaries              | <font color="#00b0f0">存放系统启动和单用户模式下必须具备的核心用户命令</font>（如 `ls`, `cp`, `mv`, `cat`）。这些命令对所有用户可用。<font color="#00b0f0">在现代 Ubuntu 系统中，`/bin` 通常作为指向 `/usr/bin` 的符号链接存在，反映了系统文件向 `/usr` 统一合并的趋势</font>。 |
+| /sbin | System Binaries       | <font color="#00b0f0">存放系统管理员使用的系统管理命令</font>（如 `iptables`, `fdisk`, `reboot`）。普通用户通常不在其 PATH 环境变量中包含此目录，因为这些命令涉及系统核心配置。                                                                           |
+| /etc  | Et Cetera             | 系统的神经中枢，<font color="#00b0f0">存放所有系统范围的配置文件</font>。名称源于早期 Unix 将"其他"文件归类于此，现已演变为 Host-specific system-wide configuration files 的标准位置。例如 `/etc/passwd`（用户库）、`/etc/network`（网络配置）等。                  |
+| /home | Home Directories      | 普通用户的个人主目录。每个用户拥有一个以其用户名命名的子目录（如 `/home/alice`），<font color="#00b0f0">用于存放个人数据和用户级配置文件（通常以 `.` 开头的隐藏文件）</font>。这是用户拥有完全写入权限的区域。                                                                    |
+| /root | Root Home             | 系统管理员（超级用户）的主目录。为了防止在单用户模式下 `/home` 分区未挂载导致管理员无法访问其配置，Root 的主目录被直接置于根目录下，而不是 `/home/root`。                                                                                                         |
+| /var  | Variable Files        | <font color="#00b0f0">存放系统中经常变化的数据文件</font>。这包括<font color="#00b0f0">系统日志（`/var/log`）、数据库文件（`/var/lib/mysql`）、网站内容（`/var/www`）以及邮件队列</font>。将 `/var` 单独分区是服务器运维的最佳实践，可防止因日志暴涨耗尽根分区空间导致系统崩溃。        |
+| /usr  | Unix System Resources | <font color="#00b0f0">系统中最庞大的目录之一，包含用户安装的应用程序、库文件、文档和源代码</font>。`/usr/bin` 存放大多数用户命令，`/usr/lib` 存放共享库。它类似于 Windows 的 `C:\Program Files`。                                                           |
+| /tmp  | Temporary             | <font color="#00b0f0">存放临时文件。系统重启时，该目录下的内容通常会被自动清除</font>。该目录通常对所有用户可写，但通过"粘滞位（Sticky Bit）"权限限制用户只能删除自己的文件。                                                                                        |
+| /dev  | Devices               | <font color="#00b0f0">设备文件目录</font>。在 Linux 哲学中"一切皆文件"，硬件设备如硬盘（`/dev/sda`）、终端（`/dev/tty`）、空设备（`/dev/null`）都以文件形式存在于此，<font color="#00b0f0">允许软件通过标准文件 I/O 接口与硬件交互</font>。                          |
+| /proc | Process Information   | 一个虚拟文件系统（Pseudo-filesystem），不占用磁盘空间，而是存在于内存中。它提供内核数据结构的接口，如 `/proc/cpuinfo` 显示 CPU 信息，`/proc/meminfo` 显示内存状态。它是系统监控工具获取数据的主要来源。                                                                    |
+| /boot | Boot Loader Files     | <font color="#00b0f0">包含启动 Linux 系统所需的核心文件，如内核映像、初始 RAM 磁盘和 GRUB 引导加载程序配置</font>。                                                                                                                  |
 
 ### 2.2 路径导航与工作流
 

@@ -32,7 +32,41 @@ MyVault/
 │   │   ├── npm 相关知识.md
 │   │   ├── Ubuntu 相关知识.md
 │   │   ├── apt 相关内容.md
-│   │   └── Curl相关内容.md
+│   │   ├── Curl相关内容.md
+│   │   ├── Ubuntu 和 Debian 的区别.md
+│   │   ├── dpkg 的用法.md
+│   │   ├── grep 的用法.md
+│   │   ├── ps 的用法.md
+│   │   ├── 点bashrc的作用和来源.md
+│   │   ├── 点开头的文件.md
+│   │   ├── 一个用户可以属于多个组.md
+│   │   ├── linux 防火墙与 iptables.md
+│   │   ├── echo 的用法.md
+│   │   ├── ip 命令.md
+│   │   ├── 重定向>和>>的用法.md
+│   │   ├── 查看文档-cat 的用法.md
+│   │   ├── 查看文档-less 的用法.md
+│   │   ├── 查看文档-more 的用法.md
+│   │   ├── 管道符｜的用法.md
+│   │   ├── apt.md
+│   │   └── 命令/
+│   │       ├── apt update 和 upgrade 的区别.md
+│   │       ├── apt 和 apt-get 的区别.md
+│   │       ├── apt.md
+│   │       ├── Curl.md
+│   │       ├── 创建用户-adduser.md
+│   │       ├── dpkg.md
+│   │       ├── echo.md
+│   │       ├── grep.md
+│   │       ├── ip.md
+│   │       ├── ps.md
+│   │       ├── sudo.md
+│   │       ├── usermod.md
+│   │       ├── 查看文档-cat.md
+│   │       ├── 查看文档-less.md
+│   │       ├── 查看文档-more.md
+│   │       ├── 查看用户所属组和权限.md
+│   │       └── 重定向>和>>的用法.md
 │   ├── LLM/
 │   │   └── 基础/
 │   │       └── 梯度下降法.md
@@ -273,10 +307,10 @@ MyVault/
 
  ### 统计信息
 
- - 总文件数: 117
- - 已格式化: 117
- - 待格式化: 0
- - 格式化率: 100%
+ - 总文件数: 131
+ - 已格式化: 122
+ - 待格式化: 9
+ - 格式化率: 93.1%
 
 ### 已格式化文件列表
 
@@ -396,3 +430,28 @@ MyVault/
 | Notes/Linux/查看文档-cat 的用法.md | ✅ 已格式化 | - |
 | Notes/Linux/点开头的文件.md | ✅ 已格式化 | - |
 | Notes/Linux/重定向>和>>的用法.md | ✅ 已格式化 | - |
+| Notes/Linux/Ubuntu 和 Debian 的区别.md | ✅ 已格式化 | - |
+| Notes/Linux/echo 的用法.md | ✅ 已格式化 | - |
+| Notes/Linux/ip 命令.md | ✅ 已格式化 | - |
+| Notes/Linux/查看文档-cat 的用法.md | ✅ 已格式化 | - |
+| Notes/Linux/查看文档-less 的用法.md | ✅ 已格式化 | - |
+| Notes/Linux/点开头的文件.md | ✅ 已格式化 | - |
+| Notes/Linux/命令/apt.md | ✅ 已格式化 | - |
+| Notes/Linux/命令/echo.md | ✅ 已格式化 | - |
+| Notes/Linux/命令/ip.md | ✅ 已格式化 | - |
+| Notes/Linux/命令/查看文档-cat.md | ✅ 已格式化 | - |
+| Notes/Linux/命令/查看文档-less.md | ✅ 已格式化 | - |
+| Notes/Linux/命令/重定向>和>>的用法.md | ✅ 已格式化 | - |
+| Notes/Linux/linux 防火墙与 iptables.md | 待格式化 | - |
+| Notes/Linux/命令/apt update 和 upgrade 的区别.md | 待格式化 | - |
+| Notes/Linux/命令/apt 和 apt-get 的区别.md | 待格式化 | - |
+| Notes/Linux/命令/Curl.md | 待格式化 | - |
+| Notes/Linux/命令/创建用户-adduser.md | 待格式化 | - |
+| Notes/Linux/命令/dpkg.md | 待格式化 | - |
+| Notes/Linux/命令/grep.md | 待格式化 | - |
+| Notes/Linux/命令/ps.md | 待格式化 | - |
+| Notes/Linux/命令/sudo.md | 待格式化 | - |
+| Notes/Linux/命令/usermod.md | 待格式化 | - |
+| Notes/Linux/命令/查看用户所属组和权限.md | 待格式化 | - |
+| Notes/Linux/点bashrc的作用和来源.md | 待格式化 | - |
+| Notes/Linux/一个用户可以属于多个组.md | 待格式化 | - |

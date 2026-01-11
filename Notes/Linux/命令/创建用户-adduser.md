@@ -1,0 +1,50 @@
+`adduser` 是 Ubuntu 中创建用户的推荐工具，它实际上是一个 Perl 脚本，封装了底层的 `useradd` 命令。相比于 `useradd`，它的最大优势在于**交互友好**和**自动化配置**。使用它时，系统会自动处理创建主目录、设置默认 Shell、配置密码等繁琐步骤 。csdn+1​
+
+## 1. 基础用法
+
+在终端中执行以下命令即可启动交互式创建流程：  
+`sudo adduser <用户名>`
+
+系统会依次提示你完成以下操作：
+
+1. **输入密码**：你需要输入两次新用户的密码。输入过程中屏幕上不会显示任何字符（包括星号），这是正常的安全机制 。[csdn](https://blog.csdn.net/chaipp0607/article/details/105353239)​
+    
+2. **填写用户信息**：系统会询问用户的全名（Full Name）、房间号、电话等。这些都是选填项，你可以一路按 **Enter** 键跳过 。[developer.aliyun](https://developer.aliyun.com/article/320560)​
+    
+3. **最终确认**：最后系统会汇总信息，输入 `Y` 并回车即可完成创建 。[developer.aliyun](https://developer.aliyun.com/article/320560)​
+    
+
+## 2. 常用参数
+
+虽然直接运行 `adduser <用户名>` 最简单，但在某些特定场景下，你可能需要配合参数使用：
+
+|场景|命令示例|说明|
+|---|---|---|
+|**指定用户组**|`sudo adduser --ingroup <组名> <用户名>`|创建用户时直接将其加入已存在的特定用户组，而不是默认创建同名组 [csdn](https://blog.csdn.net/nvd11/article/details/8749213)​。|
+|**创建系统用户**|`sudo adduser --system <用户名>`|创建一个没有主目录、无法登录 Shell 的系统用户，常用于运行后台服务 [runoob](http://www.runoob.com/linux/linux-comm-adduser.html)​。|
+|**自定义主目录**|`sudo adduser --home /自定义路径 <用户名>`|将用户的主目录设置在非默认位置（默认是 `/home/用户名`） [csdn](https://blog.csdn.net/nvd11/article/details/8749213)​。|
+|**禁止登录**|`sudo adduser --disabled-login <用户名>`|创建用户但禁止其通过密码登录，适合仅用于 SSH 密钥登录的账户 [csdn](https://blog.csdn.net/nvd11/article/details/8749213)​。|
+
+## 3. 特殊用法：将用户加入 Sudo 组
+
+`adduser` 也可以用来将现有的用户添加到特定组（如管理员组）：  
+`sudo adduser <用户名> sudo`  
+这条命令会将指定用户加入 `sudo` 组，赋予其管理员权限，比手动修改 `/etc/sudoers` 文件更安全方便 。cloud.tencent+1​
+
+## 4. 与 useradd 的区别
+
+- **自动化程度**：`adduser` 自动创建主目录、复制配置文件（如 `.bashrc`），而 `useradd` 默认是个“三无”产品（无主目录、无密码、无 Shell），除非你手动加一堆参数（如 `-m -s /bin/bash`）。csdn+1​
+    
+- **交互性**：`adduser` 会像向导一样引导你，`useradd` 则是执行完就结束，没有任何提示，也不让你设置密码（需要额外运行 `passwd`）。[developer.aliyun](https://developer.aliyun.com/article/320560)​
+    
+
+1. [https://blog.csdn.net/chaipp0607/article/details/105353239](https://blog.csdn.net/chaipp0607/article/details/105353239)
+2. [https://cloud.tencent.com/developer/article/1611042](https://cloud.tencent.com/developer/article/1611042)
+3. [https://www.cnblogs.com/sparkdev/p/5823353.html](https://www.cnblogs.com/sparkdev/p/5823353.html)
+4. [https://comate.baidu.com/zh/page/zn4uzcdtlws](https://comate.baidu.com/zh/page/zn4uzcdtlws)
+5. [https://www.cnblogs.com/cloud-2-jane/p/18804363](https://www.cnblogs.com/cloud-2-jane/p/18804363)
+6. [http://www.runoob.com/linux/linux-comm-adduser.html](http://www.runoob.com/linux/linux-comm-adduser.html)
+7. [https://developer.aliyun.com/article/320560](https://developer.aliyun.com/article/320560)
+8. [https://www.tsyvps.com/helparticle/3009.html](https://www.tsyvps.com/helparticle/3009.html)
+9. [https://www.linux.digibeatrix.com/zh/security-and-user-management-zh/useradd-command-ubuntu/](https://www.linux.digibeatrix.com/zh/security-and-user-management-zh/useradd-command-ubuntu/)
+10. [https://blog.csdn.net/nvd11/article/details/8749213](https://blog.csdn.net/nvd11/article/details/8749213)
