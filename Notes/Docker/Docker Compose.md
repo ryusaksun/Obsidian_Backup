@@ -84,7 +84,7 @@ networks:
 
 3. 解析 (Parse): Docker Compose 读取文件，自动创建网络、创建数据卷、拉取镜像。
 
-4. 运行 (Run): 按照 `depends_on` 的顺序，依次启动容器，并把它们连接到同一个网络中。
+4. 运行 (Run):<font color="#00b0f0"> 按照 `depends_on` 的顺序，依次启动容器，并把它们连接到同一个网络中</font>。
 
 ---
 

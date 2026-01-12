@@ -70,7 +70,11 @@ MyVault/
 │   ├── LLM/
 │   │   └── 基础/
 │   │       └── 梯度下降法.md
-│   └── Archive/
+│   ├── FLUX/
+│   │   └── Gemini-FLUX 调查.md
+│   ├── 知识/
+│   │   └── 内网穿透以及 FRP.md
+│   └── 存档/
 │       └── 研一上期末复习/
 │       ├── 应用数学/
 │       │   ├── 外罚函数法和内点法/
@@ -307,10 +311,10 @@ MyVault/
 
  ### 统计信息
 
- - 总文件数: 131
- - 已格式化: 122
- - 待格式化: 9
- - 格式化率: 93.1%
+ - 总文件数: 130
+ - 已格式化: 127
+ - 待格式化: 3
+ - 格式化率: 97.7%
 
 ### 已格式化文件列表
 
@@ -413,6 +417,7 @@ MyVault/
 | Notes/Docker/数据持久化：Volume 和 Bind Mount 的区别.md | ✅ 已格式化 | - |
 | Notes/Docker/硬件虚拟化和操作系统虚拟化.md | ✅ 已格式化 | - |
 | Notes/Docker/镜像-联合文件系统.md | ✅ 已格式化 | - |
+| Notes/Docker/docker常用命令.md | ✅ 已格式化 | - |
 | Notes/Linux/npm 相关知识.md | ✅ 已格式化 | - |
 | Notes/Linux/Ubuntu 相关知识.md | ✅ 已格式化 | - |
 | Notes/Linux/apt 相关内容.md | ✅ 已格式化 | - |
@@ -442,16 +447,20 @@ MyVault/
 | Notes/Linux/命令/查看文档-cat.md | ✅ 已格式化 | - |
 | Notes/Linux/命令/查看文档-less.md | ✅ 已格式化 | - |
 | Notes/Linux/命令/重定向>和>>的用法.md | ✅ 已格式化 | - |
-| Notes/Linux/linux 防火墙与 iptables.md | 待格式化 | - |
-| Notes/Linux/命令/apt update 和 upgrade 的区别.md | 待格式化 | - |
-| Notes/Linux/命令/apt 和 apt-get 的区别.md | 待格式化 | - |
-| Notes/Linux/命令/Curl.md | 待格式化 | - |
-| Notes/Linux/命令/创建用户-adduser.md | 待格式化 | - |
-| Notes/Linux/命令/dpkg.md | 待格式化 | - |
-| Notes/Linux/命令/grep.md | 待格式化 | - |
-| Notes/Linux/命令/ps.md | 待格式化 | - |
-| Notes/Linux/命令/sudo.md | 待格式化 | - |
-| Notes/Linux/命令/usermod.md | 待格式化 | - |
-| Notes/Linux/命令/查看用户所属组和权限.md | 待格式化 | - |
-| Notes/Linux/点bashrc的作用和来源.md | 待格式化 | - |
-| Notes/Linux/一个用户可以属于多个组.md | 待格式化 | - |
+| Notes/Linux/linux 防火墙与 iptables.md | ✅ 已格式化 | - |
+| Notes/Linux/命令/apt update 和 upgrade 的区别.md | ✅ 已格式化 | - |
+| Notes/Linux/命令/apt 和 apt-get 的区别.md | ✅ 已格式化 | - |
+| Notes/Linux/命令/Curl.md | ✅ 已格式化 | - |
+| Notes/Linux/命令/创建用户-adduser.md | ✅ 已格式化 | - |
+| Notes/Linux/命令/dpkg.md | ✅ 已格式化 | - |
+| Notes/Linux/命令/grep.md | ✅ 已格式化 | - |
+| Notes/Linux/命令/ps.md | ✅ 已格式化 | - |
+| Notes/Linux/命令/sudo.md | ✅ 已格式化 | - |
+| Notes/Linux/命令/usermod.md | ✅ 已格式化 | - |
+| Notes/Linux/命令/查看用户所属组和权限.md | ✅ 已格式化 | - |
+| Notes/Linux/点bashrc的作用和来源.md | ✅ 已格式化 | - |
+| Notes/Linux/一个用户可以属于多个组.md | ✅ 已格式化 | - |
+| Notes/FLUX/Gemini-FLUX 调查.md | 待格式化 | - |
+| Notes/知识/内网穿透以及 FRP.md | 待格式化 | - |
+| Notes/Linux/终端快捷键.md | 待格式化 | - |
+ 
