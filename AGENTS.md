@@ -312,9 +312,9 @@ MyVault/
  ### 统计信息
 
  - 总文件数: 130
- - 已格式化: 127
- - 待格式化: 3
- - 格式化率: 97.7%
+ - 已格式化: 130
+ - 待格式化: 0
+ - 格式化率: 100%
 
 ### 已格式化文件列表
 
@@ -460,7 +460,7 @@ MyVault/
 | Notes/Linux/命令/查看用户所属组和权限.md | ✅ 已格式化 | - |
 | Notes/Linux/点bashrc的作用和来源.md | ✅ 已格式化 | - |
 | Notes/Linux/一个用户可以属于多个组.md | ✅ 已格式化 | - |
-| Notes/FLUX/Gemini-FLUX 调查.md | 待格式化 | - |
-| Notes/知识/内网穿透以及 FRP.md | 待格式化 | - |
-| Notes/Linux/终端快捷键.md | 待格式化 | - |
+| Notes/FLUX/Gemini-FLUX 调查.md | ✅ 已格式化 | - |
+| Notes/知识/内网穿透以及 FRP.md | ✅ 已格式化 | - |
+| Notes/Linux/终端快捷键.md | ✅ 已格式化 | - |
  
