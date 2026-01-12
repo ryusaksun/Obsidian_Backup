@@ -311,8 +311,8 @@ MyVault/
 
  ### 统计信息
 
- - 总文件数: 130
- - 已格式化: 130
+ - 总文件数: 132
+ - 已格式化: 132
  - 待格式化: 0
  - 格式化率: 100%
 
@@ -423,6 +423,8 @@ MyVault/
 | Notes/Linux/apt 相关内容.md | ✅ 已格式化 | - |
 | Notes/Linux/Curl相关内容.md | ✅ 已格式化 | - |
 | Notes/LLM/基础/梯度下降法.md | ✅ 已格式化 | - |
+| Notes/LLM/基础/编码器调查报告.md | ✅ 已格式化 | - |
+| Notes/LLM/扩散模型系列/DDPM 与 DDIM.md | ✅ 已格式化 | - |
 | Notes/Linux/dpkg 的用法.md | ✅ 已格式化 | - |
 | Notes/Linux/grep 的用法.md | ✅ 已格式化 | - |
 | Notes/Linux/ps 的用法.md | ✅ 已格式化 | - |
