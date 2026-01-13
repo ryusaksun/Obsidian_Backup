@@ -266,8 +266,24 @@ MyVault/
 - 行内公式使用 `$...$`
 - 独立公式使用 `$$...$$`
 - 公式后不加标点
+
+#### LaTeX 公式的颜色设置
+
+**推荐方式：使用 LaTeX 原生的 `\color{...}` 命令**
+
+- 行内公式: `$\color{#00b0f0}{\epsilon}$` 或 `$\color{blue}{x_t}$`
+- 独立公式: `$$\color{#00b0f0}{\mathcal{N}(0, \mathbf{I})}$$`
+- 预定义颜色名: `black`, `white`, `red`, `green`, `blue`, `yellow`, `cyan`, `magenta`
+- 支持十六进制颜色: `\color{#00b0f0}{...}`
+
+**混合使用（文字和公式都加颜色）**:
+```markdown
+<font color="#00b0f0">这里的</font> $\color{#00b0f0}{\epsilon}$ <font color="#00b0f0">包含了所有随机性</font>
+```
+
+**禁止方式**:
 - **font 标签不得包裹 LaTeX 公式**：确保 `<font color="...">` 标签不包含在 `$...$` 或 `$$...$$` 之间，否则 LaTeX 渲染会失效
-  - 正确示例：`<font color="#00b0f0">这是重要概念</font>，公式为 $\epsilon$`
+  - 正确示例：`<font color="#00b0f0">这是重要概念</font>，公式为 $\color{#00b0f0}{\epsilon}$`
   - 错误示例：`<font color="#00b0f0">公式 $\epsilon$ 无法渲染</font>`
 
 ## 文件处理工作流程
@@ -280,17 +296,28 @@ MyVault/
     - 如果发现新的目录、新的文件或文件位置变化，必须先更新 AGENTS.md 中的项目结构
     - 更新已格式化文件列表（添加新文件，调整文件路径）
 
-0.5 **检查 LaTeX 渲染问题**: 检查 font 标签是否包裹 LaTeX 公式
-    - 搜索模式：`<font[^>]*>\s*\$\|<font[^>]*>.*\$.*</font>|<font[^>]*>\s*\\mathcal|<font[^>]*>.*\\mathbf`
+0.5 **检查 LaTeX 渲染问题**: 格式化新笔记前，先通过 git diff 检查是否有 font 标签导致 LaTeX 无法渲染的问题
+    - 使用 `git diff --name-only` 查看是否有新的 Markdown 文件变更
+    - 搜索新增的笔记文件中的 `<font[^>]*>\s*\$\|<font[^>]*>.*\$.*\$.*\$.*\$.*\$` 或 `</font[^>]*>\s*\\mathcal|<font[^>]*>.*\\mathbf`
     - 如果发现 font 标签包裹了 LaTeX 公式，必须修复
     - 修复方法：将 font 标签拆分到 LaTeX 公式外部，例如：
-      - 错误：`<font color="#00b0f0">这里的 $\epsilon$ 包含了...</font>`
-      - 正确：`<font color="#00b0f0">这里的</font> $\epsilon$ <font color="#00b0f0">包含了...</font>`
+      - 错误：`<font color="#00b0f0">这里的 $\epsilon$ 包含了从第 1 步到第 $t$ 步叠加的所有随机性</font>`
+      - 正确：`<font color="#00b0f0">这里的</font> $\epsilon$ <font color="#00b0f0">包含了从第 1 步到第</font> $t$ <font color="#00b0f0">步叠加的所有随机性</font>`
+    - 只有确认所有 LaTeX 公式都能正确渲染后，才开始格式化步骤
 
 0. **Git 提交备份**: 在对新增笔记进行格式化前，先把仓库提交到远程
-   - 执行命令: `git add Notes/ Excalidraw/ .obsidian/ AGENTS.md`
-   - 执行命令: `git commit -m "Backup: $(date '+%Y-%m-%d %H:%M:%S') 新增笔记提交"`
-   - 执行命令: `git push`
+    - 执行命令: `git add Notes/ Excalidraw/ .obsidian/ AGENTS.md`
+    - 执行命令: `git commit -m "Backup: $(date '+%Y-%m-%d %H:%M:%S') 新增笔记提交"`
+    - 执行命令: `git push`
+
+0.75 **检查 LaTeX 渲染问题**: 格式化新笔记前，先通过 git diff 检查是否有 font 标签导致 LaTeX 无法渲染的问题
+    - 使用 `git diff --name-only` 查看是否有新的 Markdown 文件变更
+    - 对新增的笔记文件，检查 `<font[^>]*>\s*\$\|<font[^>]*>.*\\mathcal|<font[^>]*>.*\\mathbf|` 等模式
+    - 如果发现 font 标签包裹 LaTeX 公式，必须先将 font 标签移到 LaTeX 公式外部
+    - 修复方法：将 font 标签拆分到 LaTeX 公式两端，例如：
+      - 错误：`<font color="#00b0f0">公式 $\epsilon$ 无法渲染</font>`
+      - 正确：`<font color="#00b0f0">公式</font> $\epsilon$ <font color="#00b0f0">公式续</font>`
+    - 只有确认所有 LaTeX 公式都能正确渲染后，才开始格式化步骤
    - 确保远程仓库备份成功后，再开始格式化
 
 0. 读取文件检查是否已格式化（先根据已格式化表格进行筛选，然后查看末尾是否有已格式化标记）
@@ -319,12 +346,12 @@ MyVault/
 > 判断标准：文件末尾是否包含 `**<font color="#2ecc71">✅ 已格式化</font>**` 标记
 > 由于文件路径和文件名可能会变动，最可靠的参考是笔记页尾的已格式化标记
 
- ### 统计信息
+### 统计信息
 
- - 总文件数: 133
- - 已格式化: 133
- - 待格式化: 0
- - 格式化率: 100%
+- 总文件数: 139
+- 已格式化: 139
+- 待格式化: 0
+- 格式化率: 100%
 
 ### 已格式化文件列表
 
@@ -436,6 +463,7 @@ MyVault/
 | Notes/LLM/基础/softmax 函数.md | ✅ 已格式化 | - |
 | Notes/LLM/基础/编码器调查报告.md | ✅ 已格式化 | - |
 | Notes/LLM/扩散模型系列/DDPM 与 DDIM.md | ✅ 已格式化 | - |
+| Notes/LLM/扩散模型系列/DDIM 公式推导.md | ✅ 已格式化 | - |
 | Notes/Linux/dpkg 的用法.md | ✅ 已格式化 | - |
 | Notes/Linux/grep 的用法.md | ✅ 已格式化 | - |
 | Notes/Linux/ps 的用法.md | ✅ 已格式化 | - |
