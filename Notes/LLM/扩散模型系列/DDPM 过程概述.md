@@ -317,3 +317,7 @@ $$x_{1000} = \sqrt{\bar{\alpha}}x_0 + \sqrt{1-\bar{\alpha}}\epsilon$$
         
 
 所以，它虽然不直接参与“权重更新的路径”，但它是**构建整个可训练计算图（Computational Graph）**的基石。没有它，DDPM 的训练成本会高到无法接受，或者数学上变得极不稳定。
+
+---
+
+**<font color="#2ecc71">✅ 已格式化</font>**

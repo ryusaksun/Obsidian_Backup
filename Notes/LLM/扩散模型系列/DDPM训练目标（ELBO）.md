@@ -453,7 +453,7 @@ $$x_t = \sqrt{\bar{\alpha}_t}x_0 + \sqrt{1-\bar{\alpha}_t}\epsilon$$
 - **$\epsilon$** 就是那个**“综合噪声项”**。
     
 
-**注意：** <font color="#00b0f0">这里的 $\epsilon$ 包含了从第 1 步到第 $t$ 步叠加的所有随机性</font>。它是一个标准的正态分布 $\mathcal{N}(0, I)$。
+**注意：** <font color="#00b0f0">这里的</font> $\epsilon$ <font color="#00b0f0">包含了从第 1 步到第</font> $t$ <font color="#00b0f0">步叠加的所有随机性</font>。它是一个标准的正态分布 $\mathcal{N}(0, I)$。
 
 ### 2. 为什么预测“总噪声”却能走“一小步”？
 
@@ -507,3 +507,7 @@ $$x_t = \sqrt{\bar{\alpha}_t}x_0 + \sqrt{1-\bar{\alpha}_t}\epsilon$$
     
 
 这就是为什么扩散模型有时候被理解为**“去噪”**（一步步走），有时候又被理解为**“预测原图”**（通过总噪声反推 $x_0$），这两者在数学上是相通的。
+
+---
+
+**<font color="#2ecc71">✅ 已格式化</font>**
