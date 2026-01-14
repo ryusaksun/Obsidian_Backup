@@ -84,7 +84,7 @@ $$z = \mu + \sigma \cdot \epsilon, \quad \text{其中} \quad \epsilon \sim \math
 
 - 整个操作变成了简单的加法和乘法运算，这对于神经网络框架（如PyTorch或TensorFlow）来说是完全可导的。
 
-在 DDPM 的前向过程中，这个技巧被反复使用。每一次加噪操作 $x_t \leftarrow x_{t-1}$ 实际上就是一次重参数化采样。通过连续应用这个技巧，我们可以将 $x_t$ 直接表示为 $x_0$ 和一个综合噪声项的函数，而不需要一步步进行采样。
+在 DDPM 的前向过程中，这个技巧被反复使用。每一次加噪操作 $x_t \leftarrow x_{t-1}$ 实际上就是一次重参数化采样。<font color="#00b0f0">通过连续应用这个技巧，我们可以将</font> $x_t$ <font color="#00b0f0">直接表示为</font> $x_0$ <font color="#00b0f0">和一个综合噪声项的函数，而不需要一步步进行采样</font>。
 
 #### 2.3 变分下界 (ELBO) 与 KL 散度
 
@@ -94,15 +94,15 @@ $$z = \mu + \sigma \cdot \epsilon, \quad \text{其中} \quad \epsilon \sim \math
 
 $$\log p_\theta(x) \geq \mathbb{E}_{q} - D_{KL}(q(x_{1:T}|x) | p_\theta(x_{1:T}))$$
 
-在扩散模型的语境下，这个复杂的公式最终被分解为一系列 KL 散度（Kullback-Leibler Divergence）项。KL 散度用于衡量两个概率分布之间的差异。DDPM 的训练过程，本质上就是最小化真实的前向后验分布 $q(x_{t-1}|x_t, x_0)$ 与模型预测的反向分布 $p_\theta(x_{t-1}|x_t)$ 之间的 KL 散度。
+在扩散模型的语境下，这个复杂的公式最终被分解为一系列 KL 散度（Kullback-Leibler Divergence）项。<font color="#00b0f0">KL 散度用于衡量两个概率分布之间的差异</font>。<font color="#00b0f0">DDPM 的训练过程，本质上就是最小化真实的前向后验分布</font> $q(x_{t-1}|x_t, x_0)$ <font color="#00b0f0">与模型预测的反向分布</font> $p_\theta(x_{t-1}|x_t)$ <font color="#00b0f0">之间的 KL 散度</font>。
 
-值得庆幸的是，由于涉及的分布都是高斯分布，两个高斯分布之间的 KL 散度拥有解析解（Analytical Solution），即可以通过均值和方差的简单的代数运算直接计算，而不需要进行蒙特卡洛采样近似。这为 DDPM 能够推导出简洁的均方误差（MSE）损失函数奠定了数学基础。
+值得庆幸的是，由于涉及的分布都是高斯分布，两个高斯分布之间的 KL 散度拥有解析解（Analytical Solution），即<font color="#00b0f0">可以通过均值和方差的简单的代数运算直接计算</font>，而不需要进行蒙特卡洛采样近似。这为 DDPM 能够推导出简洁的均方误差（MSE）损失函数奠定了数学基础。
 
 ---
 
 ### 第三章 DDPM详解：去噪扩散概率模型
 
-2020年，Jonathan Ho 等人发表的论文《Denoising Diffusion Probabilistic Models》不仅在理论上统一了扩散模型与变分推断，更在工程上证明了扩散模型可以生成高质量的图像。DDPM 由两个互逆的过程组成：固定的前向扩散过程和可学习的反向去噪过程。
+2020年，Jonathan Ho 等人发表的论文《Denoising Diffusion Probabilistic Models》不仅在理论上统一了扩散模型与变分推断，更在工程上证明了扩散模型可以生成高质量的图像。<font color="#00b0f0">DDPM 由两个互逆的过程组成：固定的前向扩散过程和可学习的反向去噪过程</font>。
 
 #### 3.1 前向过程：信息的系统性毁灭
 
@@ -110,7 +110,7 @@ $$\log p_\theta(x) \geq \mathbb{E}_{q} - D_{KL}(q(x_{1:T}|x) | p_\theta(x_{1:T})
 
 ##### 3.1.1 马尔可夫链定义
 
-给定真实数据分布 $x_0 \sim q(x_0)$，我们定义一个方差调度表（Variance Schedule）$\{\beta_t \in (0, 1)\}_{t=1}^T$。在每一个时间步 $t$，我们根据前一个时刻的图像 $x_{t-1}$ 生成当前时刻的图像 $x_t$：
+给定真实数据分布 $x_0 \sim q(x_0)$，<font color="#00b0f0">我们定义一个方差调度表</font>（Variance Schedule）$\{\beta_t \in (0, 1)\}_{t=1}^T$。在每一个时间步 $t$，我们根据前一个时刻的图像 $x_{t-1}$ 生成当前时刻的图像 $x_t$：
 
 $$q(x_t | x_{t-1}) = \mathcal{N}(x_t; \sqrt{1 - \beta_t} x_{t-1}, \beta_t \mathbf{I})$$
 
@@ -120,7 +120,7 @@ $$q(x_t | x_{t-1}) = \mathcal{N}(x_t; \sqrt{1 - \beta_t} x_{t-1}, \beta_t \mathb
 
 - 方差 $\beta_t \mathbf{I}$：意味着在每一步都注入了新的噪声。
 
-由于 $x_t$ 只依赖于 $x_{t-1}$，而与 $x_{t-2}$ 等更早的状态无关，因此这构成了一个马尔可夫链。随着 $t$ 趋向于 $T$（例如 $T=1000$），如果调度表设置得当，最终的分布 $x_T$ 将极其接近标准正态分布 $\mathcal{N}(0, \mathbf{I})$。此时，原始图像的所有信息都被抹去，只剩下纯粹的随机噪声。
+由于 $x_t$ 只依赖于 $x_{t-1}$，而与 $x_{t-2}$ 等更早的状态无关，因此这构成了一个马尔可夫链。随着 $t$ 趋向于 $T$（例如 $T=1000$），<font color="#00b0f0">如果调度表设置得当，最终的分布</font> $x_T$ <font color="#00b0f0">将极其接近标准正态分布</font> $\mathcal{N}(0, \mathbf{I})$。此时，原始图像的所有信息都被抹去，只剩下纯粹的随机噪声。
 
 ##### 3.1.2 任意时刻的闭式采样 (The Nice Property)
 
@@ -162,7 +162,7 @@ $$x_t = \sqrt{\bar{\alpha}_t} x_0 + \sqrt{1 - \bar{\alpha}_t} \epsilon, \quad \e
 
 深入洞察：
 
-这个公式是 DDPM 高效训练的基石。它告诉我们，$t$ 时刻的噪声图 $x_t$ 本质上就是原始图像 $x_0$ 和纯噪声 $\epsilon$ 的一个线性插值。$\sqrt{\bar{\alpha}_t}$ 是信号率（Signal Rate），$\sqrt{1 - \bar{\alpha}_t}$ 是噪声率（Noise Rate）。随着 $t$ 增加，$\bar{\alpha}_t$ 从接近1单调递减到接近0，意味着信号逐渐消失，噪声逐渐主导。这解释了为什么扩散模型被称为信噪比（SNR）不断降低的过程。
+这个公式是 DDPM 高效训练的基石。它告诉我们，<font color="#00b0f0"></font>$t$ <font color="#00b0f0">时刻的噪声图</font> $x_t$ <font color="#00b0f0">本质上就是原始图像</font> $x_0$ <font color="#00b0f0">和纯噪声</font> $\epsilon$ <font color="#00b0f0">的一个线性插值</font>。$\sqrt{\bar{\alpha}_t}$ 是信号率（Signal Rate），$\sqrt{1 - \bar{\alpha}_t}$ 是噪声率（Noise Rate）。随着 $t$ 增加，$\bar{\alpha}_t$ 从接近1单调递减到接近0，意味着信号逐渐消失，噪声逐渐主导。这解释了为什么<font color="#00b0f0">扩散模型被称为信噪比（SNR）不断降低的过程</font>。
 
 #### 3.2 反向过程：从混沌中重构秩序
 
@@ -178,13 +178,13 @@ $$q(x_{t-1} | x_t) = \frac{q(x_t | x_{t-1}) q(x_{t-1})}{q(x_t)}$$
 
 ##### 3.2.2 [[神经网络的参数化近似]]
 
-尽管真实的 $q(x_{t-1} | x_t)$ 未知，但 Feller 等人的理论研究表明，如果扩散过程的步长 $\beta_t$ 足够小，那么逆过程的分布形式也近似为高斯分布。基于此，我们可以使用一个神经网络（参数为 $\theta$）来预测这个高斯分布的参数：
+尽管真实的 $q(x_{t-1} | x_t)$ 未知，但 Feller 等人的理论研究表明，<font color="#00b0f0">如果扩散过程的步长</font> $\beta_t$ <font color="#00b0f0">足够小，那么逆过程的分布形式也近似为高斯分布</font>。基于此，我们可以使用一个神经网络（参数为 $\theta$）来预测这个高斯分布的参数：
 
 $$p_\theta(x_{t-1} | x_t) = \mathcal{N}(x_{t-1}; \boldsymbol{\mu}_\theta(x_t, t), \boldsymbol{\Sigma}_\theta(x_t, t))$$
 
 神经网络输入当前的噪声图 $x_t$ 和时间步 $t$，输出均值 $\boldsymbol{\mu}_\theta$ 和协方差 $\boldsymbol{\Sigma}_\theta$。
 
-在DDPM的原始论文中，Ho等人做了一个重要的简化：他们将协方差 $\boldsymbol{\Sigma}_\theta$ 设为与前向过程相关的常数（例如 $\beta_t \mathbf{I}$ 或 $\tilde{\beta}_t \mathbf{I}$），而不让网络去学习它。这意味着神经网络只需要专注于学习均值 $\boldsymbol{\mu}_\theta(x_t, t)$。这一简化虽然在理论上可能损失了一些表达能力，但在实践中被证明能极大地稳定训练过程。
+在DDPM的原始论文中，Ho等人做了一个重要的简化：<font color="#00b0f0">他们将协方差</font> $\boldsymbol{\Sigma}_\theta$ <font color="#00b0f0">设为与前向过程相关的常数（例如</font> $\beta_t \mathbf{I}$ <font color="#00b0f0">或</font> $\tilde{\beta}_t \mathbf{I}$<font color="#00b0f0">），而不让网络去学习它</font>。这意味着神经网络只需要专注于学习均值 $\boldsymbol{\mu}_\theta(x_t, t)$。这一简化虽然在理论上可能损失了一些表达能力，但在实践中被证明能极大地稳定训练过程。
 
 #### 3.3 训练目标：从复杂的ELBO到简单的MSE
 
@@ -204,7 +204,7 @@ $$L_{\text{ELBO}} = \mathbb{E}_q$$
 
 $$\tilde{\boldsymbol{\mu}}_t(x_t, x_0) = \frac{\sqrt{\bar{\alpha}_{t-1}}\beta_t}{1 - \bar{\alpha}_t} x_0 + \frac{\sqrt{\alpha_t}(1 - \bar{\alpha}_{t-1})}{1 - \bar{\alpha}_t} x_t$$
 
-既然我们知道真实的目标均值 $\tilde{\boldsymbol{\mu}}_t$，网络的任务就是预测出这个均值。
+既然我们知道真实的目标均值 $\tilde{\boldsymbol{\mu}}_t$，<font color="#00b0f0">网络的任务就是预测出这个均值</font>。
 
 再进一步，利用前向公式 $x_0 = \frac{x_t - \sqrt{1 - \bar{\alpha}_t}\epsilon}{\sqrt{\bar{\alpha}_t}}$ 将 $x_0$ 替换掉，我们会发现 $\tilde{\boldsymbol{\mu}}_t$ 最终只与 $x_t$ 和噪声 $\epsilon$ 有关。
 
@@ -244,7 +244,7 @@ DDPM 的缺陷：
 
 ### 第四章 DDIM：打破马尔可夫链的束缚
 
-面对DDPM的效率瓶颈，Jiaming Song等人在2020年底提出了<font color="#00b0f0">去噪扩散隐式模型</font>（Denoising Diffusion Implicit Models, DDIM）。DDIM的核心贡献在于证明了：**只要保持边缘分布 $q(x_t|x_0)$ 不变，前向过程的联合分布形式可以是任意的。**
+面对DDPM的效率瓶颈，Jiaming Song等人在2020年底提出了<font color="#00b0f0">去噪扩散隐式模型</font>（Denoising Diffusion Implicit Models, DDIM）。DDIM的核心贡献在于证明了：<font color="#00b0f0">**只要保持边缘分布</font> $q(x_t|x_0)$ <font color="#00b0f0">不变，前向过程的联合分布形式可以是任意的</font>。**
 
 #### 4.1 非马尔可夫前向过程 (Non-Markovian Forward Process)
 
@@ -252,9 +252,9 @@ DDPM的推导依赖于 $q(x_t|x_{t-1})$ 这一马尔可夫假设。然而，训�
 
 DDIM提出了一类新的非马尔可夫前向过程，其特点是：
 
-1. 它依然保证 $q(x_t|x_0) = \mathcal{N}(\sqrt{\bar{\alpha}_t} x_0, (1 - \bar{\alpha}_t) \mathbf{I})$，这确保了我们可以**直接复用已经训练好的DDPM模型权重**，而不需要重新训练。
+1. 它依然保证 $q(x_t|x_0) = \mathcal{N}(\sqrt{\bar{\alpha}_t} x_0, (1 - \bar{\alpha}_t) \mathbf{I})$，这确保了我们可以<font color="#00b0f0">**直接复用已经训练好的DDPM模型权重**，而不需要重新训练</font>。
 
-2. 它不再强求 $x_t$ 仅依赖于 $x_{t-1}$，而是允许 $x_t$ 依赖于 $x_{t-1}$ 和 $x_0$ 的组合。
+2. <font color="#00b0f0">它不再强求</font> $x_t$ <font color="#00b0f0">仅依赖于</font> $x_{t-1}$<font color="#00b0f0">，而是允许</font> $x_t$ <font color="#00b0f0">依赖于</font> $x_{t-1}$ <font color="#00b0f0">和</font> $x_0$ <font color="#00b0f0">的组合</font>。
 
 #### 4.2 广义的逆过程采样公式
 
@@ -278,7 +278,7 @@ $$\sigma_t = \eta \sqrt{\frac{1 - \bar{\alpha}_{t-1}}{1 - \bar{\alpha}_t}} \sqrt
 
 ##### 4.3.1 当 $\eta = 1$ 时：回归 DDPM
 
-如果令 $\eta = 1$，代入计算你会发现，$\sigma_t$ 的值恰好等于DDPM中的方差项。此时，公式中的随机噪声项 $\sigma_t \epsilon$ 占据主导地位，整个过程退化为标准的DDPM采样。这意味着DDPM只是DDIM这一广义框架下的一个特例。
+如果令 $\eta = 1$，代入计算你会发现，$\sigma_t$ 的值恰好等于DDPM中的方差项。此时，公式中的随机噪声项 $\sigma_t \epsilon$ 占据主导地位，整个过程退化为标准的DDPM采样。这意味着<font color="#00b0f0">DDPM只是DDIM这一广义框架下的一个特例</font>。
 
 ##### 4.3.2 当 $\eta = 0$ 时：成就 DDIM
 
@@ -288,31 +288,31 @@ $$x_{t-1} = \sqrt{\bar{\alpha}_{t-1}} \hat{x}_0 + \sqrt{1 - \bar{\alpha}_{t-1}} 
 
 这意味着，一旦初始的随机噪声 $x_T$ 给定，整个生成轨迹 $x_T \to x_{T-1} \to \dots \to x_0$ 就是完全确定的（Deterministic）。没有任何随机扰动。
 
-这就是**隐式（Implicit）**模型的含义：它通过确定性的映射定义了潜在变量到数据的分布，类似于GAN或Flow模型，而不是像DDPM那样的概率性马尔可夫链。
+这就是**隐式（Implicit）**模型的含义：<font color="#00b0f0">它通过确定性的映射定义了潜在变量到数据的分布，类似于GAN或Flow模型，而不是像DDPM那样的概率性马尔可夫链</font>。
 
 #### 4.4 DDIM 的核心优势
 
 ##### 4.4.1 采样加速 (Thinking in Steps)
 
-由于DDIM打破了马尔可夫限制，反向过程不再需要严格逼近高斯分布的微小变化。这使得我们可以进行跳步采样。
+<font color="#00b0f0">由于DDIM打破了马尔可夫限制，反向过程不再需要严格逼近高斯分布的微小变化。这使得我们可以进行跳步采样</font>。
 
 在DDPM中，我们必须走 $1000 \to 999 \to 998 \dots$。
 
 在DDIM中，我们可以定义一个子序列 $\tau = [1000, 950, 900, \dots, 0]$，只走20步。
 
-实验证明，由于DDIM的确定性更新更加稳定，即使在大步长下，它依然能保持极高的图像质量。通常，DDIM在50步采样下的FID分数（衡量图像质量的指标）就能媲美DDPM在1000步下的表现，实现了10倍到20倍的加速 7。
+实验证明，<font color="#00b0f0">由于DDIM的确定性更新更加稳定，即使在大步长下，它依然能保持极高的图像质量</font>。通常，<font color="#00b0f0">DDIM在50步采样下的FID分数（衡量图像质量的指标）就能媲美DDPM在1000步下的表现</font>，实现了10倍到20倍的加速。
 
 ##### 4.4.2 一致性与语义插值
 
 DDIM的确定性性质带来了两个独特的优势：
 
-1. 一致性（Consistency）：在DDPM中，即使固定了初始噪声 $x_T$，由于每一步都注入新噪声，生成的 $x_0$ 也会千差万别。而在DDIM中，同一个 $x_T$ 永远生成同一张图。这对于应用开发至关重要（例如用户希望微调Prompt但保持构图不变）。
+1. 一致性（Consistency）：在DDPM中，即使固定了初始噪声 $x_T$，由于每一步都注入新噪声，生成的 $x_0$ 也会千差万别。<font color="#00b0f0">而在DDIM中，同一个 $x_T$ 永远生成同一张图</font>。这对于应用开发至关重要（例如用户希望微调Prompt但保持构图不变）。
 
-2. 潜在空间插值：我们可以在两个初始噪声 $x_T^{(1)}$ 和 $x_T^{(2)}$ 之间进行球面线性插值（Slerp），然后用DDIM采样。结果会显示出两张图像之间平滑的语义过渡（例如从一只狗平滑变形成一只猫），这是DDPM难以做到的 8。
+2. 潜在空间插值：我们可以在两个初始噪声 $x_T^{(1)}$ 和 $x_T^{(2)}$ 之间进行球面线性插值（Slerp），然后用DDIM采样。结果会显示出两张图像之间平滑的语义过渡（例如从一只狗平滑变形成一只猫），这是DDPM难以做到的。
 
 ##### 4.4.3 图像反转 (Inversion)
 
-由于DDIM的更新公式近似于常微分方程（ODE）的欧拉积分，这个过程在数学上是可逆的。我们可以把一张真实照片 $x_0$ 输入，反向运行DDIM公式（加噪方向），得到其对应的精确噪声表示 $x_T$。这被称为DDIM Inversion，是许多图像编辑技术（如Pix2Pix-Zero）的基础 25。
+<font color="#00b0f0">由于DDIM的更新公式近似于常微分方程（ODE）的欧拉积分，这个过程在数学上是可逆的。我们可以把一张真实照片 $x_0$ 输入，反向运行DDIM公式（加噪方向），得到其对应的精确噪声表示 $x_T$</font>。这被称为DDIM Inversion，是许多图像编辑技术（如Pix2Pix-Zero）的基础。
 
 以下表格总结了DDPM与DDIM的关键对比：
 
@@ -338,17 +338,17 @@ DDPM和DDIM最初都是直接在像素空间（Pixel Space）操作。对于一�
 
 Stable Diffusion 引入了感知压缩（Perceptual Compression）的理念，分为两个阶段：
 
-1. 图像压缩（VAE）：首先训练一个变分自编码器（VAE）。它的编码器将 $512 \times 512 \times 3$ 的图像压缩成 $64 \times 64 \times 4$ 的潜在向量（Latent Vector）。这个压缩过程的压缩比是 $8 \times 8 = 64$ 倍。在这个低维的潜在空间中，保留了图像的语义信息（轮廓、物体、颜色），而丢弃了冗余的像素细节。
+1. 图像压缩（VAE）：首先训练一个变分自编码器（VAE）。它的编码器将 $512 \times 512 \times 3$ 的图像压缩成 $64 \times 64 \times 4$ 的潜在向量（Latent Vector）。这个压缩过程的压缩比是 $8 \times 8 = 64$ 倍。<font color="#00b0f0">在这个低维的潜在空间中，保留了图像的语义信息（轮廓、物体、颜色），而丢弃了冗余的像素细节</font>。
 
 2. 潜在空间扩散：然后，我们在 $64 \times 64 \times 4$ 的潜在空间中训练一个扩散模型（通常是U-Net结构）。这个U-Net不再预测像素的噪声，而是预测潜在特征的噪声。
 
-由于计算量大幅减少，Stable Diffusion 可以在消费级显卡（如NVIDIA RTX 3060）上运行，而不需要TPU集群。DDIM在这里通常被用作默认的采样器，以确保在50步内生成高质量图像 28。
+由于计算量大幅减少，Stable Diffusion 可以在消费级显卡（如NVIDIA RTX 3060）上运行，而不需要TPU集群。DDIM在这里通常被用作默认的采样器，以确保在50步内生成高质量图像。
 
 #### 5.2 无分类器引导 (Classifier-Free Guidance)
 
 在Stable Diffusion的WebUI中，我们经常会调节一个参数 CFG Scale（通常设为7-12）。这背后的技术叫无分类器引导（Classifier-Free Guidance, CFG）。
 
-DDPM/DDIM 本身生成的是无条件分布 $p(x)$。为了实现文生图，我们需要条件分布 $p(x|text)$。
+<font color="#00b0f0">DDPM/DDIM 本身生成的是无条件分布 $p(x)$。为了实现文生图，我们需要条件分布 $p(x|text)$</font>。
 
 早期的做法是训练一个额外的分类器来指导生成，但这很麻烦。
 
@@ -360,9 +360,9 @@ $$\tilde{\epsilon} = \epsilon_\theta(x_t, \emptyset) + w \cdot (\epsilon_\theta(
 
 其中 $w$ 就是 CFG Scale。
 
-- 这个公式的几何含义是：在噪声空间中，让生成方向远离无条件结果，强力推向有条件结果。
+- 这个公式的几何含义是：<font color="#00b0f0">在噪声空间中，让生成方向远离无条件结果，强力推向有条件结果</font>。
 
-- $w$ 越大，图像越符合提示词（Prompt），但多样性降低，且过大会导致图像过饱和或崩坏 20。
+- $w$ 越大，图像越符合提示词（Prompt），但多样性降低，且过大会导致图像过饱和或崩坏。
 
 #### 5.3 采样器的百花齐放
 
@@ -372,7 +372,7 @@ $$\tilde{\epsilon} = \epsilon_\theta(x_t, \emptyset) + w \cdot (\epsilon_\theta(
 
 - DPM++：这是一类专门为扩散模型优化的求解器，能在极少的步数（如10-20步）下达到极高的收敛精度。
 
-- Ancestral (如 Euler a, DPM++ SDE)：这些采样器会在每一步注入随机噪声（类似DDPM），生成的图像不收敛，每一帧都在微小变化，能带来更多样的细节，但也更难控制 30。
+- Ancestral (如 Euler a, DPM++ SDE)：这些采样器会在每一步注入随机噪声（类似DDPM），生成的图像不收敛，每一帧都在微小变化，能带来更多样的细节，但也更难控制。
 
 尽管采样器层出不穷，但它们的核心逻辑依然建立在DDPM定义的噪声预测网络和DDIM定义的非马尔可夫加速思想之上。
 
