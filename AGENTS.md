@@ -73,7 +73,8 @@ MyVault/
 │   │   │   ├── softmax 函数.md
 │   │   │   ├── 编码器调查报告.md
 │   │   │   ├── RoPE 旋转位置编码.md
-│   │   │   └── VAE 和 AE 的原理与区别.md
+│   │   │   ├── VAE 和 AE 的原理与区别.md
+│   │   │   └── Transformer 调查报告.md
 │   │   ├── 扩散模型系列/
 │   │   │   ├── DDPM 与 DDIM.md
 │   │   │   ├── DDIM 公式推导.md
@@ -365,8 +366,8 @@ MyVault/
 
 ### 统计信息
 
-- 总文件数: 143
-- 已格式化: 143
+- 总文件数: 144
+- 已格式化: 144
 - 待格式化: 0
 - 格式化率: 100%
 
@@ -520,6 +521,7 @@ MyVault/
 | Notes/Linux/一个用户可以属于多个组.md | ✅ 已格式化 | - |
 | Notes/FLUX/Gemini-FLUX 调查.md | ✅ 已格式化 | - |
 | Notes/LLM/基础/RoPE 旋转位置编码.md | ✅ 已格式化 | - |
+| Notes/LLM/基础/Transformer 调查报告.md | ✅ 已格式化 | - |
 | Notes/LLM/扩散模型系列/DDPM训练目标（ELBO）.md | ✅ 已格式化 | - |
 | Notes/LLM/扩散模型系列/DDPM 过程概述.md | ✅ 已格式化 | - |
 | Notes/LLM/扩散模型系列/先验分布和后验分布.md | ✅ 已格式化 | - |
