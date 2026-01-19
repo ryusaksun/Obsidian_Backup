@@ -1,8 +1,8 @@
 <img src="https://r2cdn.perplexity.ai/pplx-full-logo-primary-dark%402x.png" style="height:64px;margin-right:32px"/>
 
-# 解释一下这部分
+## 解释一下这部分
 
-这段话在讲：DDIM 为了实现**非马尔可夫**（non-Markovian）的“前向/推断过程”，不再像 DDPM 那样用逐步的 $q(x_t\mid x_{t-1})$ 去定义整条轨迹的联合分布，而是改用一种“反向分解”的方式来定义 $q_\sigma(x_{1:T}\mid x_0)$，让每一步 $x_{t-1}$ 既依赖 $x_t$ 也显式依赖 $x_0$（原始数据）。[^1_1][^1_2]
+这段话在讲：DDIM 为了实现非马尔可夫（non-Markovian）的“前向/推断过程”，不再像 DDPM 那样用逐步的 $q(x_t\mid x_{t-1})$ 去定义整条轨迹的联合分布，而是改用一种“反向分解”的方式来定义 $q_\sigma(x_{1:T}\mid x_0)$，让每一步 $x_{t-1}$ 既依赖 $x_t$ 也显式依赖 $x_0$（原始数据）。[^1_1][^1_2]
 
 ## 这条分解式在说什么
 
@@ -35,42 +35,26 @@ DDIM 的一个核心观察是：训练 DDPM/ DDIM 时真正需要匹配的关键
 
 <div align="center">⁂</div>
 
-[^1_1]: https://www.jgaubil.com/docs/gamma_ddim.pdf
 
-[^1_2]: https://arxiv.org/abs/2010.02502
 
-[^1_3]: https://lliu58b.github.io/docs/diffusion_models.pdf
 
-[^1_4]: https://proceedings.neurips.cc/paper/2020/file/4c5bcfec8584af0d967f1ab10179ca4b-Paper.pdf
 
-[^1_5]: https://sachinruk.github.io/blog/2024-02-11-DDPM-to-DDIM.html
 
-[^1_6]: image.jpg
 
-[^1_7]: https://www.reddit.com/r/BaldursGate3/comments/1e6qq7s/can_someone_explain_this_bit_to_me/
 
-[^1_8]: https://translate.google.com/?hl=zh
 
-[^1_9]: https://www.mhlw.go.jp/content/000761428.xlsx
 
-[^1_10]: https://zh.dict.naver.com
 
-[^1_11]: https://home.jeita.or.jp/mineral/seminar/files/EMRT_C_2022/
 
-[^1_12]: https://arxiv.org/pdf/2311.04938.pdf
 
-[^1_13]: https://chillin-vibes.com
 
-[^1_14]: https://proceedings.neurips.cc/paper_files/paper/2024/file/c153077e44a810cc8728460953af54f1-Paper-Conference.pdf
 
-[^1_15]: https://www.furusato-tax.jp/search?q=facebook账号【XMPT.org】88元白号vx号购买【+xmpt.org】个人微信实名号购买【+XM689.COM】抖音号出售【XMPT.org】13元vx号购买xmpt.org
 
-[^1_16]: https://openreview.net/pdf/5b5ed008801dbcd5e50d101e64349d9b05ec184c.pdf
 
 
 ---
 
-# 详细解释一下这部分
+## 详细解释一下这部分
 
 这部分的核心：要构造一个高斯转移 $q_\sigma(x_{t-1}\mid x_t,x_0)$，使得对所有 $t$，边缘分布始终保持 $q(x_t\mid x_0)=\mathcal N(\sqrt{\bar\alpha_t}x_0,(1-\bar\alpha_t)I)$，从而“同一个已训练的 DDPM 网络”可以直接拿来做 DDIM 采样。[^2_1][^2_2]
 
@@ -130,48 +114,30 @@ $$
 
 <div align="center">⁂</div>
 
-[^2_1]: https://arxiv.org/pdf/2010.02502.pdf
 
-[^2_2]: https://daviddmc.github.io/blog/2020/DDIM/
 
-[^2_3]: https://note.zhangyidi.tech/Papers/DM/DDPM/
 
-[^2_4]: https://proceedings.neurips.cc/paper/2020/file/4c5bcfec8584af0d967f1ab10179ca4b-Paper.pdf
 
-[^2_5]: https://arxiv.org/abs/2010.02502
 
-[^2_6]: https://apxml.com/courses/intro-diffusion-models/chapter-5-sampling-generation-process/intro-faster-sampling-ddim
 
-[^2_7]: https://johnsee.net/blog/2020/DDIM/
 
-[^2_8]: image.jpg
 
-[^2_9]: image.jpg
 
-[^2_10]: https://data-analytics.fun/2022/02/03/understanding-diffusion-model/
 
-[^2_11]: https://apxml.com/courses/intro-diffusion-models/chapter-5-sampling-generation-process/ddim-sampling-algorithm
 
-[^2_12]: https://www.reddit.com/r/StableDiffusion/comments/xpikmh/incrementing_ddim_eta_looks_like_its_telling_a/
 
-[^2_13]: https://blog.csdn.net/sjtu_wyy/article/details/149030137
 
-[^2_14]: https://github.com/ermongroup/ddim
 
-[^2_15]: https://apxml.com/courses/deploying-diffusion-models-scale/chapter-2-optimizing-diffusion-models-inference/sampler-optimization-strategies
 
-[^2_16]: https://hku.github.io/articles/notes-on-diffusion/
 
-[^2_17]: https://github.com/dfalbel/denoising-diffusion
 
-[^2_18]: https://huggingface.co/docs/diffusers/api/schedulers/ddim
 
 
 ---
 
-# 这部分我不理解，为什么要把它拆成两个部分
+## 这部分我不理解，为什么要把它拆成两个部分
 
-之所以要把 $\epsilon_{t-1}$（等价地，把 $x_{t-1}$ 里的噪声项）拆成“相关部分 + 独立部分”，本质是在同时满足两件事：**(1) 保持边缘分布不变**（方差必须对上），以及 **(2) 让采样过程可调随机性**（$\sigma_t$ 想加多少随机就加多少）。[^3_1][^3_2]
+之所以要把 $\epsilon_{t-1}$（等价地，把 $x_{t-1}$ 里的噪声项）拆成“相关部分 + 独立部分”，本质是在同时满足两件事：(1) 保持边缘分布不变（方差必须对上），以及 (2) 让采样过程可调随机性（$\sigma_t$ 想加多少随机就加多少）。[^3_1][^3_2]
 
 ## 先明确：你想构造什么
 
@@ -182,7 +148,7 @@ x_{t-1}=\sqrt{\bar\alpha_{t-1}}x_0+\sqrt{1-\bar\alpha_{t-1}}\;\epsilon_{t-1},\qu
 $$
 
 也就是说，在给定 $x_0$ 时，$x_{t-1}$ 的“总噪声能量/方差”固定就是 $1-\bar\alpha_{t-1}$。[^3_3][^3_4]
-但在 DDIM 里你又希望 $x_{t-1}$ **还能依赖当前 $x_t$**（从而可以用网络在 $x_t$ 处预测的噪声/ $x_0$ 来指导下一步）。[^3_2][^3_1]
+但在 DDIM 里你又希望 $x_{t-1}$ 还能依赖当前 $x_t$（从而可以用网络在 $x_t$ 处预测的噪声/ $x_0$ 来指导下一步）。[^3_2][^3_1]
 
 ## 为什么必须“拆”——不然就无法同时做到两点
 
@@ -196,7 +162,7 @@ $$
 如果你令“下一步的噪声”完全等于它：$\epsilon_{t-1}=\epsilon_t$，那过程就变成完全确定（对应 $\sigma_t=0$ 的 DDIM 采样），随机性没法调。[^3_5][^3_1]
 反过来，如果你令 $\epsilon_{t-1}$ 完全是新的独立噪声，那 $x_{t-1}$ 就和 $x_t$ 没什么关系，等于回到了“每步重新抽噪声”的思路，无法利用 $x_t$ 携带的信息来控制轨迹，也不符合你要的 $q_\sigma(x_{t-1}\mid x_t,x_0)$ 形式。[^3_2][^3_1]
 
-所以最自然的做法就是：让 $\epsilon_{t-1}$ 里**一部分沿着 $\epsilon_t$ 的方向**（相关部分，负责“跟着当前状态走”），另一部分是**正交/独立的新噪声**（独立部分，负责“补足随机性”）。[^3_1][^3_2]
+所以最自然的做法就是：让 $\epsilon_{t-1}$ 里一部分沿着 $\epsilon_t$ 的方向（相关部分，负责“跟着当前状态走”），另一部分是正交/独立的新噪声（独立部分，负责“补足随机性”）。[^3_1][^3_2]
 
 ## 拆成两部分在数学上干了什么
 
@@ -225,54 +191,33 @@ $$
 
 <div align="center">⁂</div>
 
-[^3_1]: https://daviddmc.github.io/blog/2020/DDIM/
 
-[^3_2]: https://arxiv.org/pdf/2010.02502.pdf
 
-[^3_3]: https://note.zhangyidi.tech/Papers/DM/DDPM/
 
-[^3_4]: https://proceedings.neurips.cc/paper/2020/file/4c5bcfec8584af0d967f1ab10179ca4b-Paper.pdf
 
-[^3_5]: https://johnsee.net/blog/2020/DDIM/
 
-[^3_6]: https://apxml.com/courses/intro-diffusion-models/chapter-5-sampling-generation-process/ddim-sampling-algorithm
 
-[^3_7]: https://sachinruk.github.io/blog/2024-02-11-DDPM-to-DDIM.html
 
-[^3_8]: image.jpg
 
-[^3_9]: image.jpg
 
-[^3_10]: image.jpg
 
-[^3_11]: https://arxiv.org/html/2410.23530v4
 
-[^3_12]: https://arxiv.org/html/2503.11262v1
 
-[^3_13]: https://www.ecva.net/papers/eccv_2024/papers_ECCV/papers/07469.pdf
 
-[^3_14]: https://www.nature.com/articles/s41598-024-78378-3
 
-[^3_15]: http://www.mit.edu/~gari/teaching/6.222j/ICASVDnotes.pdf
 
-[^3_16]: https://arxiv.org/html/2402.03201v1
 
-[^3_17]: https://huggingface.co/papers?q=noise+schedules
 
-[^3_18]: https://www.reddit.com/r/MachineLearning/comments/170uh8d/d_r_is_the_noise_predictor_in_ddpms_predicting/
 
-[^3_19]: https://www.biorxiv.org/content/10.1101/2022.03.30.486366v2.full-text
 
-[^3_20]: https://www.reddit.com/r/MachineLearning/comments/19bejd5/d_the_truth_about_noise_schedulers_for_latent/
 
-[^3_21]: http://papers.neurips.cc/paper/3004-towards-a-general-independent-subspace-analysis.pdf
 
 
 ---
 
-# 相关部分是怎么来的
+## 相关部分是怎么来的
 
-“相关部分”不是凭空拍出来的，它来自一个很自然的设定：**让 $x_{t-1}$ 在给定 $x_0$ 时仍然服从正确的边缘分布，同时尽可能复用 $x_t$ 里那份噪声方向 $\epsilon_t$**。[^4_1][^4_2]
+“相关部分”不是凭空拍出来的，它来自一个很自然的设定：让 $x_{t-1}$ 在给定 $x_0$ 时仍然服从正确的边缘分布，同时尽可能复用 $x_t$ 里那份噪声方向 $\epsilon_t$。[^4_1][^4_2]
 
 ## 从一个最一般的线性设定开始
 
@@ -322,7 +267,7 @@ $$
 
 ## 直观上“相关部分”在保证什么
 
-- 它把一部分噪声**锁定在与当前 $x_t$ 一致的方向**（通过共享 $\epsilon_t$），这样 $x_{t-1}$ 会和 $x_t$ 有可控的相关性，轨迹不会每一步都“换一张噪声图”。[^4_5][^4_2]
+- 它把一部分噪声锁定在与当前 $x_t$ 一致的方向（通过共享 $\epsilon_t$），这样 $x_{t-1}$ 会和 $x_t$ 有可控的相关性，轨迹不会每一步都“换一张噪声图”。[^4_5][^4_2]
 - 另一部分 $\sigma_t z$ 才是你额外注入的随机性；当 $\sigma_t=0$ 时，相关部分吃掉全部噪声预算，采样就变成确定性的 DDIM 更新。[^4_6][^4_2]
 
 如果你想继续往下对齐笔记：你那里 $\sigma_t$ 是直接给定，还是写成 $\sigma_t(\eta,\alpha_t,\alpha_{t-1})$（用 $\eta$ 控制随机性）？这会影响“相关部分”最大能取到多大，以及何时退化为 DDPM。
@@ -330,48 +275,29 @@ $$
 
 <div align="center">⁂</div>
 
-[^4_1]: https://sachinruk.github.io/blog/2024-02-11-DDPM-to-DDIM.html
 
-[^4_2]: https://daviddmc.github.io/blog/2020/DDIM/
 
-[^4_3]: https://www.tonyduan.com/diffusion/ddpm_vs_ddim.html
 
-[^4_4]: https://proceedings.neurips.cc/paper/2020/file/4c5bcfec8584af0d967f1ab10179ca4b-Paper.pdf
 
-[^4_5]: https://apxml.com/courses/intro-diffusion-models/chapter-5-sampling-generation-process/ddim-sampling-algorithm
 
-[^4_6]: https://johnsee.net/blog/2020/DDIM/
 
-[^4_7]: image.jpg
 
-[^4_8]: image.jpg
 
-[^4_9]: image.jpg
 
-[^4_10]: https://0809zheng.github.io/2022/06/04/ddim.html
 
-[^4_11]: https://apxml.com/zh/courses/synthetic-data-gans-diffusion/chapter-4-diffusion-models-theory-implementation/ddim-variance-schedules
 
-[^4_12]: https://masonlwang.com/knowledgemap/notes/chapters/DDPM-Reparametrization/
 
-[^4_13]: https://apxml.com/courses/advanced-diffusion-architectures/chapter-1-diffusion-foundations-advanced-noise/ddim-recap
 
-[^4_14]: https://blog.csdn.net/weixin_50973728/article/details/129435168
 
-[^4_15]: https://arxiv.org/html/2403.10585v1
 
-[^4_16]: https://arxiv.org/html/2406.08929v2
 
-[^4_17]: https://github.com/LuChengTHU/dpm-solver/blob/main/dpm_solver_pytorch.py
 
-[^4_18]: https://diffusion-models-made-easy.readthedocs.io/en/stable/equations/ddim.html
 
-[^4_19]: https://www.micdz.cn/article/From-DDPM-to-DDIM-Accelerate-Sampling-without-Extra-Training/
 
 
 ---
 
-# 那 DDIM 的采样过程是什么样的
+## 那 DDIM 的采样过程是什么样的
 
 DDIM 的采样（生成）过程就是：从纯噪声 $x_T\sim\mathcal N(0,I)$ 出发，每一步用网络在当前 $x_t$ 上预测噪声（或预测 $x_0$），再按一条显式更新式算出 $x_{t-1}$，一直迭代到 $x_0$。[^5_1][^5_2]
 
@@ -417,46 +343,28 @@ $$
 
 <div align="center">⁂</div>
 
-[^5_1]: https://apxml.com/courses/intro-diffusion-models/chapter-5-sampling-generation-process/ddim-sampling-algorithm
 
-[^5_2]: https://arxiv.org/pdf/2010.02502.pdf
 
-[^5_3]: https://sachinruk.github.io/blog/2024-02-11-DDPM-to-DDIM.html
 
-[^5_4]: https://huggingface.co/docs/diffusers/api/schedulers/ddim
 
-[^5_5]: image.jpg
 
-[^5_6]: image.jpg
 
-[^5_7]: image.jpg
 
-[^5_8]: https://huggingface.co/learn/diffusion-course/unit4/2
 
-[^5_9]: https://www.youtube.com/watch?v=n2P6EMbN0pc
 
-[^5_10]: https://learnopencv.com/understanding-ddim/
 
-[^5_11]: https://apxml.com/courses/advanced-diffusion-architectures/chapter-1-diffusion-foundations-advanced-noise/ddim-recap
 
-[^5_12]: https://en.wikipedia.org/wiki/Diffusion_model
 
-[^5_13]: https://lakshyaag.com/blogs/understanding-diffusion
 
-[^5_14]: https://github.com/huggingface/diffusers/blob/main/src/diffusers/schedulers/scheduling_ddim.py
 
-[^5_15]: https://arxiv.org/html/2405.15891v1
 
-[^5_16]: https://huggingface.co/docs/diffusers/v0.4.1/api/schedulers
 
-[^5_17]: https://www.danielsobrado.com/blog/diffusion-part6-sampling/
 
-[^5_18]: https://colab.research.google.com/github/huggingface/diffusion-models-class/blob/main/unit4/01_ddim_inversion.ipynb
 
 
 ---
 
-# 详细介绍一下是如何跳步采样的
+## 详细介绍一下是如何跳步采样的
 
 DDIM 的“跳步采样”本质是：训练时可能有 $T=1000$ 个离散时间步，但推理时只选其中一个长度为 $S$ 的子序列 $t_S>t_{S-1}>\dots>t_1$（例如 $S=50$），然后只在这些被选中的时刻做更新，从而把 UNet 前向次数从 1000 次降到 50 次。[^6_1][^6_2]
 
@@ -464,8 +372,8 @@ DDIM 的“跳步采样”本质是：训练时可能有 $T=1000$ 个离散时�
 
 设训练步数为 `num_train_timesteps = T`，推理步数为 `num_inference_steps = S`，常见的时间步选择策略有两类：[^6_3]
 
-- **等间隔/步长比（strided）**：用一个步长比 `step_ratio ≈ T // S`，取 $t_i \approx i\cdot \text{step_ratio}$（再反转成从大到小的去噪顺序）。[^6_4]
-- **linspace（更均匀）**：用 `linspace` 在 $[0, T-1]$ 上取 $S$ 个点（再取整/四舍五入），同样反转成从大到小。[^6_4][^6_3]
+- 等间隔/步长比（strided）：用一个步长比 `step_ratio ≈ T // S`，取 $t_i \approx i\cdot \text{step_ratio}$（再反转成从大到小的去噪顺序）。[^6_4]
+- linspace（更均匀）：用 `linspace` 在 $[0, T-1]$ 上取 $S$ 个点（再取整/四舍五入），同样反转成从大到小。[^6_4][^6_3]
 
 在 Hugging Face diffusers 里，这一步由调度器的 `set_timesteps(num_inference_steps)` 负责生成 `scheduler.timesteps`，并且还可以用 `timestep_spacing` 等配置影响具体取点方式。[^6_3]
 
@@ -502,52 +410,32 @@ $$
 
 <div align="center">⁂</div>
 
-[^6_1]: https://apxml.com/courses/intro-diffusion-models/chapter-5-sampling-generation-process/tradeoffs-ddpm-ddim
 
-[^6_2]: https://apxml.com/courses/intro-diffusion-models/chapter-5-sampling-generation-process/intro-faster-sampling-ddim
 
-[^6_3]: https://huggingface.co/docs/diffusers/api/schedulers/ddim
 
-[^6_4]: https://github.com/huggingface/diffusers/issues/2585
 
-[^6_5]: https://arxiv.org/pdf/2010.02502.pdf
 
-[^6_6]: https://apxml.com/courses/intro-diffusion-models/chapter-5-sampling-generation-process/ddim-sampling-algorithm
 
-[^6_7]: image.jpg
 
-[^6_8]: image.jpg
 
-[^6_9]: image.jpg
 
-[^6_10]: https://github.com/ermongroup/ddim
 
-[^6_11]: https://huggingface.co/spaces/nvidia/Cosmos-Predict2/blame/232b1333e66ddc932ddd87c55a5981bdd7bb8da4/diffusers_repo/examples/community/cogvideox_ddim_inversion.py
 
-[^6_12]: https://goyalpramod.github.io/blogs/demysitifying_diffusion_models/
 
-[^6_13]: https://huggingface.co/docs/diffusers/en/api/schedulers/ddim
 
-[^6_14]: https://cocalc.com/github/shivamshrirao/diffusers/blob/main/src/diffusers/schedulers/scheduling_pndm.py
 
-[^6_15]: https://github.com/huggingface/diffusers/blob/main/examples/community/pipeline_demofusion_sdxl.py
 
-[^6_16]: https://mmagic.readthedocs.io/en/latest/autoapi/mmagic/models/editors/index.html
 
-[^6_17]: https://blog.sotaaz.com/post/ddim-fast-sampling-en
 
-[^6_18]: https://colab.research.google.com/github/huggingface/notebooks/blob/main/diffusers/diffusers_intro.ipynb
 
-[^6_19]: https://colab.research.google.com/github/huggingface/diffusion-models-class/blob/main/unit4/01_ddim_inversion.ipynb
 
-[^6_20]: https://huggingface.co/papers?q=likelihood+displacement
 
 
 ---
 
-# 解释图片内容
+## 解释图片内容
 
-这张图在讲 DDIM 的“思维跳跃”：虽然 DDPM 的前向扩散是一步步的马尔可夫链 $p(x_t\mid x_{t-1})$，但训练目标最后**只用到了边缘分布** $q(x_t\mid x_0)$，而真正采样时**只需要学到反向一步** $p_\theta(x_{t-1}\mid x_t)$，于是就产生了“能不能把中间那条马尔可夫前向链换掉/甚至不依赖它”的想法，从而引出 DDIM。[^7_1][^7_2]
+这张图在讲 DDIM 的“思维跳跃”：虽然 DDPM 的前向扩散是一步步的马尔可夫链 $p(x_t\mid x_{t-1})$，但训练目标最后只用到了边缘分布 $q(x_t\mid x_0)$，而真正采样时只需要学到反向一步 $p_\theta(x_{t-1}\mid x_t)$，于是就产生了“能不能把中间那条马尔可夫前向链换掉/甚至不依赖它”的想法，从而引出 DDIM。[^7_1][^7_2]
 
 ## 顶部那条箭头链在表达什么
 
@@ -562,8 +450,8 @@ $$
 
 图中灰框两点可以理解为：
 
-1) **损失只依赖 $q(x_t\mid x_0)$**：DDPM 常用的简化训练目标（噪声预测 MSE）只需要从边缘分布里采样 $x_t=\sqrt{\bar\alpha_t}x_0+\sqrt{1-\bar\alpha_t}\epsilon$，并不需要真的按 $q(x_t\mid x_{t-1})$ 把整条链采出来。[^7_3][^7_1]
-2) **采样只依赖 $p_\theta(x_{t-1}\mid x_t)$**：生成时就是从 $x_T$ 开始迭代应用反向一步，前向的具体联合过程只是在训练推导里用来证明这些分布形式与目标函数。[^7_2][^7_1]
+1) 损失只依赖 $q(x_t\mid x_0)$：DDPM 常用的简化训练目标（噪声预测 MSE）只需要从边缘分布里采样 $x_t=\sqrt{\bar\alpha_t}x_0+\sqrt{1-\bar\alpha_t}\epsilon$，并不需要真的按 $q(x_t\mid x_{t-1})$ 把整条链采出来。[^7_3][^7_1]
+2) 采样只依赖 $p_\theta(x_{t-1}\mid x_t)$：生成时就是从 $x_T$ 开始迭代应用反向一步，前向的具体联合过程只是在训练推导里用来证明这些分布形式与目标函数。[^7_2][^7_1]
 
 ## “过河拆桥”这句话在说什么
 
@@ -574,50 +462,31 @@ $$
 
 <div align="center">⁂</div>
 
-[^7_1]: https://daviddmc.github.io/blog/2020/DDPM/
 
-[^7_2]: https://arxiv.org/abs/2010.02502
 
-[^7_3]: https://arxiv.org/pdf/2006.11239.pdf
 
-[^7_4]: https://github.com/garg-aayush/research-papers/blob/main/Summaries/Diffusion/DDIM.md
 
-[^7_5]: image.jpg
 
-[^7_6]: image.jpg
 
-[^7_7]: image.jpg
 
-[^7_8]: image.jpg
 
-[^7_9]: https://apxml.com/courses/advanced-diffusion-architectures/chapter-1-diffusion-foundations-advanced-noise/ddim-recap
 
-[^7_10]: https://blog.csdn.net/weixin_50973728/article/details/129435168
 
-[^7_11]: https://xinbeicai.github.io/2025/04/16/ddim/
 
-[^7_12]: https://sachinruk.github.io/blog/2024-02-11-DDPM-to-DDIM.html
 
-[^7_13]: https://johnsee.net/blog/2020/DDIM/
 
-[^7_14]: https://www.tonyduan.com/diffusion/ddpm_vs_ddim.html
 
-[^7_15]: https://openreview.net/pdf?id=UWUUVKtKeu
 
-[^7_16]: https://apxml.com/courses/intro-diffusion-models/chapter-5-sampling-generation-process/ddim-sampling-algorithm
 
-[^7_17]: https://apxml.com/courses/advanced-diffusion-architectures/chapter-4-advanced-diffusion-training/advanced-loss-functions
 
-[^7_18]: https://arxiv.org/html/2312.09193v2
 
-[^7_19]: https://www.reddit.com/r/MachineLearning/comments/19aac2d/d_what_does_qx_t1x_t_indicates_intuitively_in/
 
 
 ---
 
-# 这个地方我不太理解，DDIM 按照DDPM的前向加噪公式来说，他不是只依赖于 x0 吗，为什么我们在计算 xt 的时候，还要考虑 xt-1
+## 这个地方我不太理解，DDIM 按照DDPM的前向加噪公式来说，他不是只依赖于 x0 吗，为什么我们在计算 xt 的时候，还要考虑 xt-1
 
-你这个疑惑的关键在于：**有两种“生成 $x_t$”的方式**——一种是“按马尔可夫链一步步加噪”（会用到 $x_{t-1}$），另一种是“直接从边缘分布一次采样”（只用 $x_0$）。两者得到的 $x_t$ 分布是一样的，但用途不同。[^8_1][^8_2]
+你这个疑惑的关键在于：有两种“生成 $x_t$”的方式——一种是“按马尔可夫链一步步加噪”（会用到 $x_{t-1}$），另一种是“直接从边缘分布一次采样”（只用 $x_0$）。两者得到的 $x_t$ 分布是一样的，但用途不同。[^8_1][^8_2]
 
 ## 方式 A：一步步加噪（会用到 $x_{t-1}$）
 
@@ -630,7 +499,7 @@ $$
 
 所以如果你“真的去模拟前向扩散轨迹”，那生成 $x_t$ 必须从 $x_{t-1}$ 递推过来。[^8_1]
 
-这条链主要是一个**建模/推导工具**：它让我们能写出训练的变分下界、后验 $q(x_{t-1}\mid x_t,x_0)$ 等。[^8_3][^8_1]
+这条链主要是一个建模/推导工具：它让我们能写出训练的变分下界、后验 $q(x_{t-1}\mid x_t,x_0)$ 等。[^8_3][^8_1]
 
 ## 方式 B：直接从边缘采样（只依赖 $x_0$）
 
@@ -652,67 +521,46 @@ $$
 
 ## 那 DDIM 为什么图里还出现 $x_{t-1}$？
 
-DDIM 的“只依赖 $x_0$”指的是：它构造的一族过程保持同样的边缘 $q_\sigma(x_t\mid x_0)$，因此**训练时造 $x_t$** 仍然可以只用 $x_0$ 的闭式边缘采样。[^8_2][^8_6]
+DDIM 的“只依赖 $x_0$”指的是：它构造的一族过程保持同样的边缘 $q_\sigma(x_t\mid x_0)$，因此训练时造 $x_t$ 仍然可以只用 $x_0$ 的闭式边缘采样。[^8_2][^8_6]
 但在“过程/链”的层面（尤其是图里画的是联合过程或采样路径），你仍然会讨论从 $x_t$ 到 $x_{t-1}$ 的转移——DDPM 是前向 $q(x_t\mid x_{t-1})$；DDIM 则改成（可非马尔可夫的）$q_\sigma(x_{t-1}\mid x_t,x_0)$ 或者生成时用 $p_\theta(x_{t-1}\mid x_t)$ 去一步步还原。[^8_7][^8_2]
 
 一句话区分：
 
-- **训练/构造数据对**：常用闭式 $q(x_t\mid x_0)$，所以“不用 $x_{t-1}$”。[^8_1]
-- **描述一条轨迹/做生成采样**：必须有“从 $t$ 到 $t-1$”的更新，所以会出现 $x_{t-1}$。DDIM 的创新是把这条轨迹的构造方式换了，从而可以跳步、更快。[^8_2][^8_7]
+- 训练/构造数据对：常用闭式 $q(x_t\mid x_0)$，所以“不用 $x_{t-1}$”。[^8_1]
+- 描述一条轨迹/做生成采样：必须有“从 $t$ 到 $t-1$”的更新，所以会出现 $x_{t-1}$。DDIM 的创新是把这条轨迹的构造方式换了，从而可以跳步、更快。[^8_2][^8_7]
 
 如果你指出你卡住的是图里哪一个箭头（例如虚线的 $q(x_t\mid x_{t-1})$ 还是 DDIM 的 $q(x_{t-1}\mid x_t,x_0)$），可以把那一块单独拆开对照解释。
 <span style="display:none">[^8_10][^8_11][^8_12][^8_13][^8_14][^8_15][^8_16][^8_17][^8_18][^8_19][^8_20][^8_21][^8_8][^8_9]</span>
 
 <div align="center">⁂</div>
 
-[^8_1]: https://daviddmc.github.io/blog/2020/DDPM/
 
-[^8_2]: https://daviddmc.github.io/blog/2020/DDIM/
 
-[^8_3]: https://proceedings.neurips.cc/paper/2020/file/4c5bcfec8584af0d967f1ab10179ca4b-Paper.pdf
 
-[^8_4]: https://www.emergentmind.com/topics/denoising-diffusion-probabilistic-model-ddpm
 
-[^8_5]: https://arxiv.org/pdf/2006.11239.pdf
 
-[^8_6]: https://sachinruk.github.io/blog/2024-02-11-DDPM-to-DDIM.html
 
-[^8_7]: https://arxiv.org/pdf/2010.02502.pdf
 
-[^8_8]: image.jpg
 
-[^8_9]: image.jpg
 
-[^8_10]: image.jpg
 
-[^8_11]: image.jpg
 
-[^8_12]: image.jpg
 
-[^8_13]: https://towardsdatascience.com/diffusion-loss-every-step-explained-8c19c5e1349b/
 
-[^8_14]: https://theaisummer.com/diffusion-models/
 
-[^8_15]: https://arxiv.org/html/2512.07201v1
 
-[^8_16]: https://learnopencv.com/understanding-ddim/
 
-[^8_17]: https://www.linkedin.com/pulse/denoising-diffusion-probabilistic-models-deep-dive-prasuk-jain-e8vbf
 
-[^8_18]: https://lakshyaag.com/blogs/understanding-diffusion
 
-[^8_19]: https://apxml.com/courses/intro-diffusion-models/chapter-2-forward-diffusion-process/gaussian-noise-schedule
 
-[^8_20]: https://johnsee.net/blog/2020/DDIM/
 
-[^8_21]: https://www.patrickschnass.de/posts/latent-diffusion-models/
 
 
 ---
 
-# 我的理解是既然 xt-1 在前向加噪的时候只与 x0 有关，那为什么在反向去噪的时候也和 xt 有关，为什么不是只和 x0 有关
+## 我的理解是既然 xt-1 在前向加噪的时候只与 x0 有关，那为什么在反向去噪的时候也和 xt 有关，为什么不是只和 x0 有关
 
-你这里把两件事混在了一起：**边缘分布** $q(x_t\mid x_0)$ “只和 $x_0$ 有关”，不代表**一步反推的条件分布** $q(x_{t-1}\mid x_t,x_0)$ 也只和 $x_0$ 有关。[^9_1][^9_2]
+你这里把两件事混在了一起：边缘分布 $q(x_t\mid x_0)$ “只和 $x_0$ 有关”，不代表一步反推的条件分布 $q(x_{t-1}\mid x_t,x_0)$ 也只和 $x_0$ 有关。[^9_1][^9_2]
 
 ## 1) “只依赖 $x_0$”说的是边缘，不是一步条件
 
@@ -748,58 +596,35 @@ DDPM/DDIM 的训练思路是：用网络 $p_\theta(x_{t-1}\mid x_t)$ 去拟合�
 
 <div align="center">⁂</div>
 
-[^9_1]: https://daviddmc.github.io/blog/2020/DDPM/
 
-[^9_2]: https://proceedings.neurips.cc/paper/2020/file/4c5bcfec8584af0d967f1ab10179ca4b-Paper.pdf
 
-[^9_3]: https://www.emergentmind.com/topics/denoising-diffusion-probabilistic-model-ddpm
 
-[^9_4]: https://learnopencv.com/denoising-diffusion-probabilistic-models/
 
-[^9_5]: https://www.lucianacendon.com/blog/mathematical-foundations-diffusion-models.html
 
-[^9_6]: image.jpg
 
-[^9_7]: image.jpg
 
-[^9_8]: image.jpg
 
-[^9_9]: image.jpg
 
-[^9_10]: image.jpg
 
-[^9_11]: https://www.reddit.com/r/MachineLearning/comments/19aac2d/d_what_does_qx_t1x_t_indicates_intuitively_in/
 
-[^9_12]: https://www.reddit.com/r/MachineLearning/comments/1auy7pm/d_help_with_these_questions_about_backward/
 
-[^9_13]: https://www.math.utah.edu/~bwang/mathds/Lecture15.pdf
 
-[^9_14]: https://www.reddit.com/r/learnmachinelearning/comments/1d3h0lb/questions_about_math_behind_diffusion_model/
 
-[^9_15]: https://www.reddit.com/r/MachineLearning/comments/16xmm0d/r_d_how_to_sample_x_t_and_x_t1_deterministically/
 
-[^9_16]: https://johnsee.net/blog/2020/DDIM/
 
-[^9_17]: https://patrickyin.me/notes/img/Diffusion_Models.pdf
 
-[^9_18]: https://aidy.hashnode.dev/diffusion-models
 
-[^9_19]: https://arxiv.org/pdf/2010.02502.pdf
 
-[^9_20]: https://sitanchen.com/cs224/f23/scribe/lec24.pdf
 
-[^9_21]: https://data-analytics.fun/2022/02/03/understanding-diffusion-model/
 
-[^9_22]: https://openreview.net/forum?id=KkYZmepjHn
 
-[^9_23]: https://dl.ee.cuhk.edu.hk/slides/diffusion.pdf
 
 
 ---
 
-# 为什么这个转移核可以这样写
+## 为什么这个转移核可以这样写
 
-这里的“可以这样写”分两层意思：**(A) 为什么联合分布能写成这种乘积形式**，以及 **(B) 为什么每一项可以选成 $q_\sigma(x_{t-1}\mid x_t,x_0)$ 这种“看见 $x_0$”的转移核**。
+这里的“可以这样写”分两层意思：(A) 为什么联合分布能写成这种乘积形式，以及 (B) 为什么每一项可以选成 $q_\sigma(x_{t-1}\mid x_t,x_0)$ 这种“看见 $x_0$”的转移核。
 
 ## 先说 A：这个乘积形式来自概率链式法则
 
@@ -816,7 +641,7 @@ $$
 
 ## 再说 B：为什么可以把依赖“截断”成 $q_\sigma(x_{t-1}\mid x_t,x_0)$
 
-这一步不是数学必然，而是**建模选择**：DDIM 主动在“所有可能的联合分布”里挑一个子类，让每一步只依赖 $(x_t,x_0)$，即
+这一步不是数学必然，而是建模选择：DDIM 主动在“所有可能的联合分布”里挑一个子类，让每一步只依赖 $(x_t,x_0)$，即
 
 $$
 q_\sigma(x_{1:T}\mid x_0)=q_\sigma(x_T\mid x_0)\prod_{t=2}^T q_\sigma(x_{t-1}\mid x_t,x_0)
@@ -824,14 +649,14 @@ $$
 
 这样做的目的有两个：[^10_2][^10_3]
 
-- **引入非马尔可夫性但又可控**：它不是 DDPM 的 $q(x_t\mid x_{t-1})$ 那种纯马尔可夫前向链，因为转移里显式出现了 $x_0$；但它也比“依赖整个 $x_{t:T}$”简单很多，容易推导和实现。[^10_4][^10_3]
-- **保留与 DDPM 相同的边缘 $q(x_t\mid x_0)$**：DDIM 会把这些转移核的参数特意选到使得对所有 $t$，边缘仍是 $\mathcal N(\sqrt{\bar\alpha_t}x_0,(1-\bar\alpha_t)I)$，从而训练目标可与 DDPM 对齐，甚至能直接复用预训练 DDPM 模型。[^10_3][^10_2]
+- 引入非马尔可夫性但又可控：它不是 DDPM 的 $q(x_t\mid x_{t-1})$ 那种纯马尔可夫前向链，因为转移里显式出现了 $x_0$；但它也比“依赖整个 $x_{t:T}$”简单很多，容易推导和实现。[^10_4][^10_3]
+- 保留与 DDPM 相同的边缘 $q(x_t\mid x_0)$：DDIM 会把这些转移核的参数特意选到使得对所有 $t$，边缘仍是 $\mathcal N(\sqrt{\bar\alpha_t}x_0,(1-\bar\alpha_t)I)$，从而训练目标可与 DDPM 对齐，甚至能直接复用预训练 DDPM 模型。[^10_3][^10_2]
 
 所以：这不是“任何转移核都能这么写”，而是“可以这么定义一个新的过程”，并且通过合适的参数化让它满足边缘约束。[^10_5][^10_3]
 
 ## 为什么这不和“边缘只依赖 $x_0$”矛盾
 
-“边缘 $q(x_t\mid x_0)$ 只依赖 $x_0$”说的是**单个时刻的分布**；而 $q_\sigma(x_{t-1}\mid x_t,x_0)$ 说的是“在给定当前状态后，上一步怎么分布”，这当然可以同时依赖 $x_t$ 和 $x_0$。[^10_5][^10_4]
+“边缘 $q(x_t\mid x_0)$ 只依赖 $x_0$”说的是单个时刻的分布；而 $q_\sigma(x_{t-1}\mid x_t,x_0)$ 说的是“在给定当前状态后，上一步怎么分布”，这当然可以同时依赖 $x_t$ 和 $x_0$。[^10_5][^10_4]
 DDIM 的关键点正是：允许很多不同的“联合/轨迹结构”，只要它们产生同样的边缘即可。[^10_2][^10_3]
 
 如果你想进一步追到“为什么这种选法能保证边缘不变”，下一步就是看它如何把 $q_\sigma(x_{t-1}\mid x_t,x_0)$ 具体设成高斯，并把均值写成 $x_0$ 与 $\epsilon_t$ 的组合（再用方差预算推出 $\sqrt{1-\bar\alpha_{t-1}-\sigma_t^2}$ 这种系数）。[^10_6][^10_5]
@@ -839,56 +664,35 @@ DDIM 的关键点正是：允许很多不同的“联合/轨迹结构”，只�
 
 <div align="center">⁂</div>
 
-[^10_1]: https://en.wikipedia.org/wiki/Chain_rule_(probability)
 
-[^10_2]: https://github.com/garg-aayush/research-papers/blob/main/Summaries/Diffusion/DDIM.md
 
-[^10_3]: https://arxiv.org/abs/2010.02502
 
-[^10_4]: https://minibatchai.com/2022/07/14/Diffusion_Sampling.html
 
-[^10_5]: https://daviddmc.github.io/blog/2020/DDIM/
 
-[^10_6]: https://sachinruk.github.io/blog/2024-02-11-DDPM-to-DDIM.html
 
-[^10_7]: image.jpg
 
-[^10_8]: image.jpg
 
-[^10_9]: image.jpg
 
-[^10_10]: image.jpg
 
-[^10_11]: image.jpg
 
-[^10_12]: image.jpg
 
-[^10_13]: https://johnsee.net/blog/2020/DDIM/
 
-[^10_14]: https://kyoungseop.tistory.com/entry/질문답-DDPM에서-pθxt−1∣xt를-학습할-때는-qxt−1​∣x0​에-일치-시키면-안되는가
 
-[^10_15]: https://www.reddit.com/r/learnmachinelearning/comments/1bedas9/question_on_ddim/
 
-[^10_16]: https://www.stat.auckland.ac.nz/~fewster/325/notes/ch8.pdf
 
-[^10_17]: https://www.reddit.com/r/MachineLearning/comments/19aac2d/d_what_does_qx_t1x_t_indicates_intuitively_in/
 
-[^10_18]: https://www.reddit.com/r/learnmachinelearning/comments/1d3h0lb/questions_about_math_behind_diffusion_model/
 
-[^10_19]: http://galton.uchicago.edu/~lalley/Courses/312/MarkovChains.pdf
 
-[^10_20]: https://dlaiml.tistory.com/entry/DDIM-Denoising-Diffusion-Implicit-Models
 
-[^10_21]: https://www.youtube.com/watch?v=n2P6EMbN0pc
 
 
 ---
 
-# 而 qσ(xt−1∣xt,x0)qσ(xt−1∣xt,x0) 说的是“在给定当前状态后，上一步怎么分布”，这当然可以同时依赖 xtxt 和 x0x0
+## 而 qσ(xt−1∣xt,x0)qσ(xt−1∣xt,x0) 说的是“在给定当前状态后，上一步怎么分布”，这当然可以同时依赖 xtxt 和 x0x0
 
 如何理解这句话，为什么可以同时依赖 xt 和 x0
 
-可以同时依赖 $x_t$ 和 $x_0$，因为 $q_\sigma(x_{t-1}\mid x_t,x_0)$ 描述的是一个**条件分布**：在“同时已知两条信息”的情况下，上一步 $x_{t-1}$ 的不确定性如何分布。条件分布本来就允许（也通常需要）依赖多个条件变量，这不是矛盾，而是“给的信息越多，后验越精确”的常规贝叶斯图景。[^11_1][^11_2]
+可以同时依赖 $x_t$ 和 $x_0$，因为 $q_\sigma(x_{t-1}\mid x_t,x_0)$ 描述的是一个条件分布：在“同时已知两条信息”的情况下，上一步 $x_{t-1}$ 的不确定性如何分布。条件分布本来就允许（也通常需要）依赖多个条件变量，这不是矛盾，而是“给的信息越多，后验越精确”的常规贝叶斯图景。[^11_1][^11_2]
 
 ## 关键点：边缘只依赖 $x_0$ ≠ 条件只依赖 $x_0$
 
@@ -903,13 +707,13 @@ $$
 q(x_{t-1}\mid x_t,x_0)\propto q(x_t\mid x_{t-1})\,q(x_{t-1}\mid x_0)
 $$
 
-这里 $q(x_t\mid x_{t-1})$ 是**似然**（从 $x_{t-1}$ 加噪得到 $x_t$ 的概率），$q(x_{t-1}\mid x_0)$ 是**先验**（只知道 $x_0$ 时 $x_{t-1}$ 的分布）。[^11_4]
+这里 $q(x_t\mid x_{t-1})$ 是似然（从 $x_{t-1}$ 加噪得到 $x_t$ 的概率），$q(x_{t-1}\mid x_0)$ 是先验（只知道 $x_0$ 时 $x_{t-1}$ 的分布）。[^11_4]
 因此后验同时用到了 $x_t$（来自似然项）和 $x_0$（来自先验项），这就是“为什么可以同时依赖 $x_t$ 和 $x_0$”的根本原因。[^11_4]
 
 ## 直觉类比：只用 $x_0$ 会丢掉“你现在看到的这张图”
 
 把 $x_t$ 想成“当前这张被噪声污染的图”，而 $x_0$ 是“原图”。给定原图 $x_0$ 只能告诉你：第 $t-1$ 步大概噪到什么程度（噪声强度/边缘分布）。[^11_3]
-但给定当前观测 $x_t$ 会告诉你：**这一次具体加出来的噪声长什么样**（方向/纹理/随机种子痕迹），从而决定你从 $x_t$ 回到 $x_{t-1}$ 时该往哪个方向修正。[^11_5][^11_3]
+但给定当前观测 $x_t$ 会告诉你：这一次具体加出来的噪声长什么样（方向/纹理/随机种子痕迹），从而决定你从 $x_t$ 回到 $x_{t-1}$ 时该往哪个方向修正。[^11_5][^11_3]
 
 ## 放到 DDIM 的语境
 
@@ -925,51 +729,31 @@ DDIM 之所以写 $q_\sigma(x_{t-1}\mid x_t,x_0)$，是因为它刻意构造一�
 
 <div align="center">⁂</div>
 
-[^11_1]: https://lis.academy/informetrics-scientometrics/conditional-probability-dependent-events/
 
-[^11_2]: https://en.wikipedia.org/wiki/Conditional_probability
 
-[^11_3]: https://daviddmc.github.io/blog/2020/DDPM/
 
-[^11_4]: https://magic-with-latents.github.io/latent/posts/ddpms/part3/
 
-[^11_5]: https://aidy.hashnode.dev/diffusion-models
 
-[^11_6]: https://arxiv.org/pdf/2010.02502.pdf
 
-[^11_7]: https://daviddmc.github.io/blog/2020/DDIM/
 
-[^11_8]: image.jpg
 
-[^11_9]: image.jpg
 
-[^11_10]: image.jpg
 
-[^11_11]: image.jpg
 
-[^11_12]: image.jpg
 
-[^11_13]: image.jpg
 
-[^11_14]: https://towardsdatascience.com/diffusion-loss-every-step-explained-8c19c5e1349b/
 
-[^11_15]: https://theaisummer.com/diffusion-models/
 
-[^11_16]: http://vinesmsuic.github.io/paper-ddpm/index.html
 
-[^11_17]: https://www.reddit.com/r/MachineLearning/comments/19aac2d/d_what_does_qx_t1x_t_indicates_intuitively_in/
 
-[^11_18]: https://www.assemblyai.com/blog/diffusion-models-for-machine-learning-introduction
 
-[^11_19]: https://notes.arturgalstyan.dev/posts/diffusion-models
 
-[^11_20]: https://arxiv.org/pdf/2309.08568.pdf
 
-[^11_21]: https://bookdown.org/probability/beta/conditional-probability.html
 
-[^11_22]: https://jiegroup-genai.readthedocs-hosted.com/en/latest/diffusion/index.html
 
-[^11_23]: https://www.datacamp.com/blog/conditional-probability
 
-[^11_24]: https://spot.pcc.edu/~evega/conditionalProbabilitySection.html
 
+
+---
+
+**<font color="#2ecc71">✅ 已格式化</font>**

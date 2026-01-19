@@ -10,7 +10,7 @@
 
 ### 1.2 DDIM的提出背景与核心贡献
 
-正是在这种背景下，Song等人于ICLR 2021提出了去噪扩散隐式模型（Denoising Diffusion Implicit Models, DDIMs）。DDIM并非对DDPM的简单修补，而是对其理论基础的一次深刻重构。研究团队敏锐地指出，<font color="#00b0f0">DDPM的训练目标——即去噪得分匹配（Denoising Score Matching）或噪声预测损失——实际上仅依赖于边缘分布（Marginal Distribution）$q(x_t|x_0)$，而不依赖于特定的马尔可夫联合分布 $q(x_{1:T}|x_0)$ </font>。
+正是在这种背景下，Song等人于ICLR 2021提出了去噪扩散隐式模型（Denoising Diffusion Implicit Models, DDIMs）。DDIM并非对DDPM的简单修补，而是对其理论基础的一次深刻重构。研究团队敏锐地指出，<font color="#00b0f0">DDPM 的训练目标——即去噪得分匹配（Denoising Score Matching）或噪声预测损失——实际上仅依赖于边缘分布（Marginal Distribution）</font> $\color{#00b0f0}{q(x_t|x_0)}$ <font color="#00b0f0">，而不依赖于特定的马尔可夫联合分布</font> $\color{#00b0f0}{q(x_{1:T}|x_0)}$ <font color="#00b0f0">。</font>
 
 <font color="#00b0f0">这一洞见构成了DDIM的基石：只要我们能构造出一族新的前向过程，使其在任意时间步 $t$ 的边缘分布与DDPM保持一致，那么这些过程就可以共享同一个预训练的去噪模型，而无需重新训练</font>。<font color="#00b0f0">DDIM通过引入非马尔可夫（Non-Markovian）的前向过程</font><font color="#00b0f0">，推导出了确定性的逆向生成路径</font>。这不仅允许在采样阶段大幅压缩步数（例如从1000步减少至50步），实现了10倍至50倍的加速，还揭示了扩散模型与神经常微分方程（Neural ODEs）之间的深层联系。
 
@@ -69,7 +69,7 @@ DDPM的局限性在于其严格的马尔可夫假设，即 $x_t$ 仅依赖于 $x
 
 $$q_\sigma(x_{1:T}|x_0) = q_\sigma(x_T|x_0) \prod_{t=2}^T q_\sigma(x_{t-1}|x_t, x_0)$$
 
-这里，我们将 $x_T$ 定义为满足标准高斯分布（假设 $\bar{\alpha}_T \approx 0$），并且每一个 $x_{t-1}$ 都条件依赖于 $x_t$ 和 $x_0$。这种依赖关系的引入，<font color="#00b0f0">使得我们能够显式地利用 $x_0$ 的信息来指导从 $x_t$ 到 $x_{t-1}$ 的推断，而不必受限于马尔可夫性质</font>。
+这里，我们将 $x_T$ 定义为满足标准高斯分布（假设 $\bar{\alpha}_T \approx 0$），并且每一个 $x_{t-1}$ 都条件依赖于 $x_t$ 和 $x_0$。这种依赖关系的引入，<font color="#00b0f0">使得我们能够显式地利用</font> $\color{#00b0f0}{x_0}$ <font color="#00b0f0">的信息来指导从</font> $\color{#00b0f0}{x_t}$ <font color="#00b0f0">到</font> $\color{#00b0f0}{x_{t-1}}$ <font color="#00b0f0">的推断，而不必受限于马尔可夫性质</font>。
 
 ### 3.2 待定系数法推导后验分布 $q_\sigma(x_{t-1}|x_t, x_0)$
 
@@ -170,7 +170,7 @@ $$\sigma_t(\eta) = \eta \sqrt{\frac{1 - \bar{\alpha}_{t-1}}{1 - \bar{\alpha}_t}}
 
 #### 情形一：DDPM 模式 ($\eta=1$)
 
-当 $\eta=1$ 时，$\sigma_t$ 等于前向过程后验分布的真实标准差。此时，生成过程不仅边缘分布与DDPM一致，其条件转移分布 $p_\theta(x_{t-1}|x_t)$ 也与DDPM的逆向马尔可夫链完全吻合。因此，$\eta=1$ 时的DDIM在数学上等价于DDPM 13。
+当 $\eta=1$ 时，$\sigma_t$ 等于前向过程后验分布的真实标准差。此时，生成过程不仅边缘分布与DDPM一致，其条件转移分布 $p_\theta(x_{t-1}|x_t)$ 也与DDPM的逆向马尔可夫链完全吻合。因此，$\eta=1$ 时的DDIM在数学上等价于DDPM。
 
 #### 情形二：DDIM 确定性模式 ($\eta=0$)
 
@@ -184,7 +184,7 @@ $$x_{t-1} = \sqrt{\bar{\alpha}_{t-1}} \left( \frac{x_t - \sqrt{1 - \bar{\alpha}_
     
 2. 隐式模型：生成过程不再是随机游走，而是一个确定性的映射 $x_T \mapsto x_0$。这使得DDIM被归类为“隐式概率模型”（Implicit Probabilistic Model）。
     
-3. 一致性：由于没有随机噪声的干扰，模型倾向于在不同的时间步保持特征的一致性，这对于后续的插值和反演至关重要 1。
+3. 一致性：由于没有随机噪声的干扰，模型倾向于在不同的时间步保持特征的一致性，这对于后续的插值和反演至关重要。
     
 
 下表总结了 $\eta$ 对采样行为的影响：
