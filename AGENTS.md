@@ -87,7 +87,11 @@ MyVault/
 │   │   └── FLUX/
 │   │       └── Gemini-FLUX 调查.md
 │   ├── 任性科技/
-│   │   └── 四篇x论文总结.md
+│   │   ├── VAE逻辑图.md
+│   │   ├── Wavelet-based VAE 调查.md
+│   │   ├── 小波变换调查.md
+│   │   ├── 四篇论文总结.md
+│   │   └── 贝叶斯视角下的生成过程.md
 │   └── 知识/
 │   │   └── Gemini-FLUX 调查.md
 │   ├── 知识/
@@ -531,4 +535,6 @@ MyVault/
 | Notes/附件/解释一下这部分.md | ✅ 已格式化 | - |
 | Notes/知识/内网穿透以及 FRP.md | ✅ 已格式化 | - |
 | Notes/Linux/终端快捷键.md | ✅ 已格式化 | - |
+| Notes/任性科技/Wavelet-based VAE 调查.md | ✅ 已格式化 | - |
+| Notes/任性科技/四篇论文总结.md | ✅ 已格式化 | - |
  
