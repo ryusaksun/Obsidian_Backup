@@ -1,0 +1,14 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(find:*)",
+      "Bash(while read f)",
+      "Bash(do if ! grep -q '✅ 已格式化' $f)",
+      "Bash(then echo $f)",
+      "Bash(fi)",
+      "Bash(done)",
+      "Bash(git add:*)",
+      "Bash(git commit -m \"$\\(cat <<''EOF''\nFormat: 批量格式化修复\n\n修复内容：\n- DDIM 公式推导.md: 修复表格中 LaTeX | 符号\n- Gemini-深度学习框架调查.md: H1 → H2 降级\n- RoPE 旋转位置编码.md: H1 → H2 降级\n- 小波变换调查.md: H1 → H2 降级 + 添加格式化标记\n- 贝叶斯视角下的生成过程.md: 添加格式化标记\n- 迟早返回原点概率的计算.md: 修复表格中 LaTeX | → \\\\mid\nEOF\n\\)\")"
+    ]
+  }
+}

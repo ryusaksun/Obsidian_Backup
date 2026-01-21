@@ -7,7 +7,7 @@ tags: [excalidraw]
 ==⚠  Switch to EXCALIDRAW VIEW in the MORE OPTIONS menu of this document. ⚠== You can decompress Drawing data with the command palette: 'Decompress current Excalidraw file'. For more info check in plugin settings under 'Saving'
 
 
-# Excalidraw Data
+## Excalidraw Data
 
 ## Text Elements
 原始目标: 压缩+生成 ^UuXsla69
@@ -18,11 +18,11 @@ tags: [excalidraw]
 
 解码器 Decoder ^hfcPKV9J
 
-潜在空间z应该什么样? ^rOG5C9iQ
+潜在空间 z 应该什么样? ^rOG5C9iQ
 
 随意分布 ^08OQgW5i
 
-标准高斯N0,1 ^SiL5mx86
+标准高斯 N0,1 ^SiL5mx86
 
 空间不连续<br>有空洞<br>无法生成 ^OsOMNbR0
 
@@ -44,7 +44,7 @@ tags: [excalidraw]
 
 重建损失 MSE ^db2fnP0D
 
-KL损失 ^dD2IXY4O
+KL 损失 ^dD2IXY4O
 
 保留信息<br>能还原数据 ^wY027eHc
 
@@ -60,17 +60,17 @@ KL损失 ^dD2IXY4O
 
 生成过程 ^EkO2QHy6
 
-从N0,1采样z ^bsMQNCTc
+从 N0,1 采样 z ^bsMQNCTc
 
 解码得到图像 ^3PCRv9lP
 
 为什么模糊? ^xzn0kgzD
 
-MSE鼓励预测平均值<br>80%的原因 ^d22tZK8h
+MSE 鼓励预测平均值<br>80%的原因 ^d22tZK8h
 
-信息瓶颈<br>48倍压缩 ^qzoxjULn
+信息瓶颈<br>48 倍压缩 ^qzoxjULn
 
-KL正则限制容量<br>20%的原因 ^KQqrrf4f
+KL 正则限制容量<br>20%的原因 ^KQqrrf4f
 
 结果: 模糊图像 ^TYUsTb7U
 
@@ -78,16 +78,20 @@ KL正则限制容量<br>20%的原因 ^KQqrrf4f
 
 感知损失 ^Ire4y9jK
 
-Diffusion模型 ^WiMt3RKq
+Diffusion 模型 ^WiMt3RKq
 
-GAN对抗训练 ^RNysKvcq
+GAN 对抗训练 ^RNysKvcq
 
 错误 ^T7X8n1Rc
 
 正确 ^GH5Gj9z1
 
 %%
+
 ## Drawing
+<details>
+<summary>点击查看代码</summary>
+
 ```compressed-json
 N4KAkARALgngDgUwgLgAQQQDwMYEMA2AlgCYBOuA7hADTgQBuCpAzoQPYB2KqATLZMzYBXUtiRoIACyhQ4zZAHoFAc0JRJQgEYA6bGwC2CgF7N6hbEcK4OCtptbErHALRY8RMpWdx8Q1TdIEfARcZgRmBShcZQUebQBGAA5tAGYaOiCEfQQOKGZuAG1wMFAwMogSbghnABY2KAAJGAaAEUIAUQBpQnxmADkAQQBZAA0BtgBldLLIWEQqwOwojmVg
 
@@ -415,4 +419,10 @@ M6C6cRYnjgL+IhEhYnEAIYDnEIXD2+YIApyFYnQFIrB1wakDYUeMK4AAAAUeOGoAvAFc4txJrAeIHRAA
 
 ST6Sc6osQEsAv2AgA6YGwBqQIMTosGEBggHySaEAbAfeMHB9ALkSqsMqj/7ENADAAixxSVCTjoKL5LwESAJNGrBGAIKThSWIRQSY4BmAMiSqQErAJIEMAcgDZhEdvYgOguEAuujUhbwEAA==
 ```
+
+</details>
 %%
+
+---
+
+**<font color="#2ecc71">✅ 已格式化</font>**
