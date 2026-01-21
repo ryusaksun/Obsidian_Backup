@@ -375,14 +375,14 @@ DDIM 的提出是扩散模型发展史上的一个里程碑。它并没有改变
 
 ## 附录：关键公式速查表
 
-| 名称              | 公式 / 定义                                                                                                      | 物理含义与备注                                                                 |
-| ------------------- | ---------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------- |
-| 边缘分布            | $q(x_t                                                                                                           | x_0) = \mathcal{N}(\sqrt{\bar{\alpha}_t}x_0, (1-\bar{\alpha}_t)\mathbf{I})$ |
-| DDIM 后验         | $q_\sigma(x_{t-1}                                                                                                | x_t, x_0) = \mathcal{N}(\dots, \sigma_t^2 \mathbf{I})$                      |
-| DDIM 采样公式       | $x_{t-1} = \sqrt{\bar{\alpha}_{t-1}} (\text{pred } x_0) + \text{dir } x_t + \sigma_t \epsilon_t$                 | 通用生成公式，包含去噪、指向、随机三项                                                         |
-| 随机参数 $\sigma_t$ | $\eta \sqrt{\frac{1-\bar{\alpha}_{t-1}}{1-\bar{\alpha}_t}} \sqrt{1 - \frac{\bar{\alpha}_t}{\bar{\alpha}_{t-1}}}$ | 控制随机性。$\eta=0$ 为 DDIM, $\eta=1$ 为 DDPM                                      |
-| 预测 $x_0$        | $\hat{x}_0 = (x_t - \sqrt{1-\bar{\alpha}_t}\epsilon_\theta) / \sqrt{\bar{\alpha}_t}$                             | Tweedie 公式，对原始信号的估计                                                         |
-| 概率流 ODE         | $dx_t = [f(x,t) - \frac{1}{2}g(t)^2 \nabla \log p_t]dt$                                                          | DDIM ($\eta=0$) 在 $\Delta t \to 0$ 时的连续极限                                   |
+| 名称 | 公式 / 定义 | 物理含义与备注 |
+| --- | --- | --- |
+| 边缘分布 | $q(x_t \mid x_0) = \mathcal{N}(\sqrt{\bar{\alpha}_t}x_0, (1-\bar{\alpha}_t)\mathbf{I})$ | 给定初始图像的任意时间步分布 |
+| DDIM 后验 | $q_\sigma(x_{t-1} \mid x_t, x_0) = \mathcal{N}(\dots, \sigma_t^2 \mathbf{I})$ | DDIM 的核心后验分布 |
+| DDIM 采样公式 | $x_{t-1} = \sqrt{\bar{\alpha}_{t-1}} (\text{pred } x_0) + \text{dir } x_t + \sigma_t \epsilon_t$ | 通用生成公式，包含去噪、指向、随机三项 |
+| 随机参数 $\sigma_t$ | $\eta \sqrt{\frac{1-\bar{\alpha}_{t-1}}{1-\bar{\alpha}_t}} \sqrt{1 - \frac{\bar{\alpha}_t}{\bar{\alpha}_{t-1}}}$ | 控制随机性。$\eta=0$ 为 DDIM, $\eta=1$ 为 DDPM |
+| 预测 $x_0$ | $\hat{x}_0 = (x_t - \sqrt{1-\bar{\alpha}_t}\epsilon_\theta) / \sqrt{\bar{\alpha}_t}$ | Tweedie 公式，对原始信号的估计 |
+| 概率流 ODE | $dx_t = [f(x,t) - \frac{1}{2}g(t)^2 \nabla \log p_t]dt$ | DDIM ($\eta=0$) 在 $\Delta t \to 0$ 时的连续极限 |
 ---
 
 **<font color="#2ecc71">✅ 已格式化</font>**
