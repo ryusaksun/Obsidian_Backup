@@ -1,4 +1,4 @@
-# 深度学习工程化与 PyTorch 架构解析：从理论范式到科研级代码构建的全景研究报告
+## 深度学习工程化与 PyTorch 架构解析：从理论范式到科研级代码构建的全景研究报告
 
 ## 1. 引言：计算范式的转移与深度学习的工程化挑战
 
@@ -20,11 +20,11 @@
 
 神经网络的代码本质上是数学公式的算法化实现。为了不仅能“运行”代码，更能“创造”代码，以下数学领域的掌握至关重要：
 
-|**数学领域**|**核心概念**|**深度学习中的映射**|
+|数学领域|核心概念|深度学习中的映射|
 |---|---|---|
-|**线性代数**|矩阵乘法、向量空间、特征值|全连接层运算、卷积操作、特征提取、主成分分析 (PCA)|
-|**微积分**|链式法则、偏导数、雅可比矩阵|反向传播算法 (Backpropagation)、自动微分 (Autograd)、梯度下降|
-|**概率统计**|概率分布、期望、最大似然估计|权重初始化 (Xavier/Kaiming)、损失函数设计 (CrossEntropy)、正则化|
+|线性代数|矩阵乘法、向量空间、特征值|全连接层运算、卷积操作、特征提取、主成分分析 (PCA)|
+|微积分|链式法则、偏导数、雅可比矩阵|反向传播算法 (Backpropagation)、自动微分 (Autograd)、梯度下降|
+|概率统计|概率分布、期望、最大似然估计|权重初始化 (Xavier/Kaiming)、损失函数设计 (CrossEntropy)、正则化|
 
 #### 2.1.1 线性代数与张量思维
 
@@ -42,18 +42,18 @@ Python 之所以成为 AI 的通用语言，很大程度上归功于 NumPy 和 P
 
 NumPy 是 PyTorch 的前置技能。PyTorch 的 Tensor API 在设计上刻意模仿了 NumPy 的 `ndarray`，使得具备 NumPy 经验的开发者能平滑过渡 。
 
-- **向量化编程（Vectorization）：** 在深度学习中，必须极力避免使用 Python 原生的 `for` 循环来处理数据。利用 NumPy 或 PyTorch 的向量化操作，可以将计算任务下沉到 C 或 CUDA 层面执行，从而获得数千倍的性能提升。
+- 向量化编程（Vectorization）： 在深度学习中，必须极力避免使用 Python 原生的 `for` 循环来处理数据。利用 NumPy 或 PyTorch 的向量化操作，可以将计算任务下沉到 C 或 CUDA 层面执行，从而获得数千倍的性能提升。
     
-- **数组操作：** 熟练掌握切片（Slicing）、索引（Indexing）、维度变换（Reshape/View）是处理数据的基本功。例如，将图像数据从 `(H, W, C)` 转换为 PyTorch 要求的 `(C, H, W)` 格式，需要对转置操作有清晰的认知 。
+- 数组操作： 熟练掌握切片（Slicing）、索引（Indexing）、维度变换（Reshape/View）是处理数据的基本功。例如，将图像数据从 `(H, W, C)` 转换为 PyTorch 要求的 `(C, H, W)` 格式，需要对转置操作有清晰的认知 。
     
 
 #### 2.2.2 面向对象编程（OOP）与模块化设计
 
 深度学习代码的复杂性要求高度的模块化。PyTorch 采用面向对象的设计模式，所有的神经网络层和模型都必须继承自 `torch.nn.Module` 类 。
 
-- **类的继承与多态：** 开发者需要理解 `__init__` 方法用于定义模型的“组件”（如卷积层、全连接层），而 `forward` 方法用于定义这些组件如何通过数据流连接。
+- 类的继承与多态： 开发者需要理解 `__init__` 方法用于定义模型的“组件”（如卷积层、全连接层），而 `forward` 方法用于定义这些组件如何通过数据流连接。
     
-- **可调用对象：** 理解 `__call__` 机制，即为何我们可以像调用函数一样调用模型实例（如 `output = model(input)`），这是 PyTorch 内部实现前向传播钩子（Hooks）的基础 。
+- 可调用对象： 理解 `__call__` 机制，即为何我们可以像调用函数一样调用模型实例（如 `output = model(input)`），这是 PyTorch 内部实现前向传播钩子（Hooks）的基础 。
     
 
 ---
@@ -66,16 +66,16 @@ NumPy 是 PyTorch 的前置技能。PyTorch 的 Tensor API 在设计上刻意模
 
 PyTorch 采用“Define-by-Run”的模式，这意味着计算图是在代码执行的过程中动态构建的 。
 
-- **灵活性优势：** 这种机制允许开发者使用 Python 的标准控制流（`if`, `for`, `while`）来构建网络。例如，在处理变长序列的循环神经网络（RNN）或递归神经网络（Recursive NN）时，网络结构可以随输入数据的不同而变化，这在静态图框架（如早期的 TensorFlow）中实现极其困难。
+- 灵活性优势： 这种机制允许开发者使用 Python 的标准控制流（`if`, `for`, `while`）来构建网络。例如，在处理变长序列的循环神经网络（RNN）或递归神经网络（Recursive NN）时，网络结构可以随输入数据的不同而变化，这在静态图框架（如早期的 TensorFlow）中实现极其困难。
     
-- **调试便利性：** 由于图是动态构建的，开发者可以在 `forward` 方法中插入 `print` 语句或使用 Python 调试器（PDB）直接查看中间变量的值和梯度，这使得调试过程直观且高效 。
+- 调试便利性： 由于图是动态构建的，开发者可以在 `forward` 方法中插入 `print` 语句或使用 Python 调试器（PDB）直接查看中间变量的值和梯度，这使得调试过程直观且高效 。
     
 
 ### 3.2 张量（Tensor）：多维数据的智能容器
 
 PyTorch 的 Tensor 不仅仅是多维数组，它是承载数据、梯度以及设备信息的容器 。
 
-- **设备管理（Device Management）：** 深度学习极其依赖 GPU 加速。编写代码时，必须显式管理张量所在的设备（CPU 或 CUDA）。编写“设备无关代码”（Device Agnostic Code）是最佳实践：
+- 设备管理（Device Management）： 深度学习极其依赖 GPU 加速。编写代码时，必须显式管理张量所在的设备（CPU 或 CUDA）。编写“设备无关代码”（Device Agnostic Code）是最佳实践：
     
     Python
     
@@ -87,16 +87,16 @@ PyTorch 的 Tensor 不仅仅是多维数组，它是承载数据、梯度以及�
     
     这种模式确保了代码在不同硬件环境下的可移植性 。
     
-- **梯度追踪：** Tensor 的 `requires_grad` 属性决定了是否对其进行梯度计算。在推理阶段（Inference），使用 `with torch.no_grad():` 上下文管理器可以关闭梯度计算，从而显著减少显存占用并提升速度 。
+- 梯度追踪： Tensor 的 `requires_grad` 属性决定了是否对其进行梯度计算。在推理阶段（Inference），使用 `with torch.no_grad():` 上下文管理器可以关闭梯度计算，从而显著减少显存占用并提升速度 。
     
 
 ### 3.3 自动微分引擎（Autograd）：优化的核心
 
 Autograd 是 PyTorch 的核心组件，它负责记录对张量执行的所有操作，并构建一个有向无环图（DAG）。在反向传播阶段，Autograd 按照拓扑顺序的反序，自动计算所有叶子节点（即模型参数）的梯度 。
 
-- **计算图的生命周期：** 理解计算图在每次 `backward()` 调用后会被默认释放（freed）是至关重要的。这意味着每次迭代（Iteration）都会重新构建一个新的计算图，这正是 PyTorch 支持动态性的基础，但也意味着需要注意内存管理。
+- 计算图的生命周期： 理解计算图在每次 `backward()` 调用后会被默认释放（freed）是至关重要的。这意味着每次迭代（Iteration）都会重新构建一个新的计算图，这正是 PyTorch 支持动态性的基础，但也意味着需要注意内存管理。
     
-- **梯度累积：** 默认情况下，`.backward()` 会将梯度累加到 `.grad` 属性中，而不是覆盖。这也是为什么在每个训练步中必须调用 `optimizer.zero_grad()` 的原因。然而，这一特性也常被用于实现“梯度累积”（Gradient Accumulation），以在有限显存下模拟大批量（Large Batch Size）训练 。
+- 梯度累积： 默认情况下，`.backward()` 会将梯度累加到 `.grad` 属性中，而不是覆盖。这也是为什么在每个训练步中必须调用 `optimizer.zero_grad()` 的原因。然而，这一特性也常被用于实现“梯度累积”（Gradient Accumulation），以在有限显存下模拟大批量（Large Batch Size）训练 。
     
 
 ---
@@ -113,44 +113,44 @@ Autograd 是 PyTorch 的核心组件，它负责记录对张量执行的所有�
 
 对于非标准数据集，必须继承 `torch.utils.data.Dataset` 并实现三个关键方法：
 
-1. **`__init__`**：负责初始化文件路径、加载元数据（如 CSV 标签文件）以及定义数据变换（Transforms）。为了节省内存，通常不在此处加载具体的图像或音频文件，而是只存储路径列表。
+1. `__init__`：负责初始化文件路径、加载元数据（如 CSV 标签文件）以及定义数据变换（Transforms）。为了节省内存，通常不在此处加载具体的图像或音频文件，而是只存储路径列表。
     
-2. **`__len__`**：返回数据集的总样本数，供 DataLoader 计算 Epoch 长度。
+2. `__len__`：返回数据集的总样本数，供 DataLoader 计算 Epoch 长度。
     
-3. **`__getitem__`**：这是数据加载的核心。根据索引 `idx`，从磁盘读取数据，应用预处理（如归一化、裁剪），并返回张量对（Input, Label）。这里是磁盘 I/O 的主要发生地 。
+3. `__getitem__`：这是数据加载的核心。根据索引 `idx`，从磁盘读取数据，应用预处理（如归一化、裁剪），并返回张量对（Input, Label）。这里是磁盘 I/O 的主要发生地 。
     
 
 #### 4.1.2 DataLoader 的并行与批处理
 
 `DataLoader` 负责将 `Dataset` 检索到的单个样本打包成批次（Batch），并提供多进程加载、打乱（Shuffle）和内存钉扎（Pin Memory）功能。
 
-- **`collate_fn` 的定制：** 当处理自然语言处理（NLP）或目标检测任务时，一个 Batch 内的样本往往形状不一（如句子长度不同）。默认的 `collate_fn` 无法处理这种情况。开发者必须编写自定义的 `collate_fn`，对短序列进行填充（Padding）或将数据组织成列表形式，以保证 Tensor 维度的对齐 。
+- `collate_fn` 的定制： 当处理自然语言处理（NLP）或目标检测任务时，一个 Batch 内的样本往往形状不一（如句子长度不同）。默认的 `collate_fn` 无法处理这种情况。开发者必须编写自定义的 `collate_fn`，对短序列进行填充（Padding）或将数据组织成列表形式，以保证 Tensor 维度的对齐 。
     
 
 ### 4.2 模型架构的模块化构建
 
 使用 `torch.nn` 模块构建网络时，应遵循模块化原则。
 
-- **`nn.Sequential` vs. `nn.Module`：** 对于简单的线性堆叠结构，`nn.Sequential` 提供了简洁的写法。然而，对于包含残差连接（Residual Connection）、多分支结构或复杂控制流的现代网络（如 ResNet, Transformer），必须通过子类化 `nn.Module` 来显式定义 `forward` 逻辑 。
+- `nn.Sequential` vs. `nn.Module`： 对于简单的线性堆叠结构，`nn.Sequential` 提供了简洁的写法。然而，对于包含残差连接（Residual Connection）、多分支结构或复杂控制流的现代网络（如 ResNet, Transformer），必须通过子类化 `nn.Module` 来显式定义 `forward` 逻辑 。
     
-- **参数初始化：** 虽然 PyTorch 提供了默认的初始化方法，但在科研中，针对不同激活函数（ReLU, Tanh）选择合适的初始化策略（Kaiming Initialization, Xavier Initialization）往往能决定模型是否收敛 。
+- 参数初始化： 虽然 PyTorch 提供了默认的初始化方法，但在科研中，针对不同激活函数（ReLU, Tanh）选择合适的初始化策略（Kaiming Initialization, Xavier Initialization）往往能决定模型是否收敛 。
     
 
 ### 4.3 训练循环的标准范式
 
 编写训练循环是初学者最容易出错的地方。一个标准的 PyTorch 训练步包含以下严格顺序 ：
 
-1. **数据迁移：** 将 Input 和 Target 移动到 GPU (`.to(device)`)。
+1. 数据迁移： 将 Input 和 Target 移动到 GPU (`.to(device)`)。
     
-2. **前向传播：** `output = model(input)`。
+2. 前向传播： `output = model(input)`。
     
-3. **计算损失：** `loss = criterion(output, target)`。
+3. 计算损失： `loss = criterion(output, target)`。
     
-4. **梯度清零：** `optimizer.zero_grad()`。这一步至关重要，否则梯度会与上一轮的梯度叠加，导致更新方向错误。
+4. 梯度清零： `optimizer.zero_grad()`。这一步至关重要，否则梯度会与上一轮的梯度叠加，导致更新方向错误。
     
-5. **反向传播：** `loss.backward()`，计算参数梯度。
+5. 反向传播： `loss.backward()`，计算参数梯度。
     
-6. **参数更新：** `optimizer.step()`，根据梯度更新权重。
+6. 参数更新： `optimizer.step()`，根据梯度更新权重。
     
 
 ---
@@ -163,12 +163,12 @@ Autograd 是 PyTorch 的核心组件，它负责记录对张量执行的所有�
 
 在实现复杂的注意力机制（Attention Mechanism）或多维张量收缩时，传统的 `matmul`、`transpose` 和 `view` 组合往往晦涩难懂且容易出错。`torch.einsum`（爱因斯坦求和约定）提供了一种声明式的、直观的张量运算方式 。
 
-|**运算类型**|**数学公式**|**传统 PyTorch 写法**|**Einsum 写法**|
+|运算类型|数学公式|传统 PyTorch 写法|Einsum 写法|
 |---|---|---|---|
-|**矩阵乘法**|$C_{ik} = \sum_j A_{ij} B_{jk}$|`torch.matmul(A, B)`|`torch.einsum('ij,jk->ik', A, B)`|
-|**点积**|$c = \sum_i A_i B_i$|`torch.dot(A, B)`|`torch.einsum('i,i->', A, B)`|
-|**外积**|$C_{ij} = A_i B_j$|`torch.ger(A, B)`|`torch.einsum('i,j->ij', A, B)`|
-|**多头注意力**|$Q K^T$ (Batch, Head, Seq, Dim)|(涉及多次 permute 和 matmul)|`torch.einsum('bhqd,bhkd->bhqk', Q, K)`|
+|矩阵乘法|$C_{ik} = \sum_j A_{ij} B_{jk}$|`torch.matmul(A, B)`|`torch.einsum('ij,jk->ik', A, B)`|
+|点积|$c = \sum_i A_i B_i$|`torch.dot(A, B)`|`torch.einsum('i,i->', A, B)`|
+|外积|$C_{ij} = A_i B_j$|`torch.ger(A, B)`|`torch.einsum('i,j->ij', A, B)`|
+|多头注意力|$Q K^T$ (Batch, Head, Seq, Dim)|(涉及多次 permute 和 matmul)|`torch.einsum('bhqd,bhkd->bhqk', Q, K)`|
 
 使用 `einsum` 不仅使代码与数学公式一一对应，提高了可读性，还能在后端自动优化计算路径 。
 
@@ -176,13 +176,13 @@ Autograd 是 PyTorch 的核心组件，它负责记录对张量执行的所有�
 
 复现一篇深度学习论文通常遵循以下步骤 ：
 
-1. **输入输出分析：** 在编写任何代码之前，明确每一层输入张量和输出张量的形状（Shape）。
+1. 输入输出分析： 在编写任何代码之前，明确每一层输入张量和输出张量的形状（Shape）。
     
-2. **从简单循环开始：** 遇到复杂的矩阵运算，先用 Python 的 `for` 循环实现逻辑，利用小数据验证正确性。
+2. 从简单循环开始： 遇到复杂的矩阵运算，先用 Python 的 `for` 循环实现逻辑，利用小数据验证正确性。
     
-3. **向量化优化：** 将 `for` 循环转化为 PyTorch 的向量化操作（利用广播、einsum 等），以获得 GPU 加速。
+3. 向量化优化： 将 `for` 循环转化为 PyTorch 的向量化操作（利用广播、einsum 等），以获得 GPU 加速。
     
-4. **单元测试：** 对网络中的关键模块（如 Transformer 的 Encoder Block）编写单元测试，检查梯度是否能正确回传，是否存在形状不匹配问题。
+4. 单元测试： 对网络中的关键模块（如 Transformer 的 Encoder Block）编写单元测试，检查梯度是否能正确回传，是否存在形状不匹配问题。
     
 
 ---
@@ -193,28 +193,28 @@ Autograd 是 PyTorch 的核心组件，它负责记录对张量执行的所有�
 
 ### 6.1 深度学习的调试艺术
 
-- **形状检查（Shape Checking）：** 90% 的运行时错误源于维度不匹配。在 `forward` 方法中插入 `print(x.shape)` 或使用断点调试是排查问题的最快方式 。
+- 形状检查（Shape Checking）： 90% 的运行时错误源于维度不匹配。在 `forward` 方法中插入 `print(x.shape)` 或使用断点调试是排查问题的最快方式 。
     
-- **NaN 与 Inf 的排查：** 梯度爆炸或除零错误会导致 Loss 变成 NaN。PyTorch 提供了 `torch.autograd.set_detect_anomaly(True)` 上下文管理器，它能回溯计算图，精确定位产生 NaN 的那一行代码。这是一个昂贵的操作，仅应在调试时开启 。
+- NaN 与 Inf 的排查： 梯度爆炸或除零错误会导致 Loss 变成 NaN。PyTorch 提供了 `torch.autograd.set_detect_anomaly(True)` 上下文管理器，它能回溯计算图，精确定位产生 NaN 的那一行代码。这是一个昂贵的操作，仅应在调试时开启 。
     
-- **梯度可视化：** 监控梯度的范数（Norm）和直方图。如果梯度全为零，可能是 ReLU 死区（Dead ReLU）或计算图断裂；如果梯度过大，则需要引入梯度裁剪。
+- 梯度可视化： 监控梯度的范数（Norm）和直方图。如果梯度全为零，可能是 ReLU 死区（Dead ReLU）或计算图断裂；如果梯度过大，则需要引入梯度裁剪。
     
 
 ### 6.2 实验追踪系统：超越 Print
 
 现代科研需要可视化的实验追踪工具，而不是依赖终端的打印日志 。
 
-|**工具**|**特点**|**适用场景**|
+|工具|特点|适用场景|
 |---|---|---|
-|**TensorBoard**|本地可视化，支持 Loss 曲线、图像、直方图|基础实验，无需联网，隐私性高|
-|**Weights & Biases (WandB)**|云端协作，自动记录超参数、系统资源、模型版本|团队协作，大规模实验对比，复现性要求高|
-|**Neptune.ai**|强调元数据管理和可扩展性|企业级大规模模型开发|
+|TensorBoard|本地可视化，支持 Loss 曲线、图像、直方图|基础实验，无需联网，隐私性高|
+|Weights & Biases (WandB)|云端协作，自动记录超参数、系统资源、模型版本|团队协作，大规模实验对比，复现性要求高|
+|Neptune.ai|强调元数据管理和可扩展性|企业级大规模模型开发|
 
 ### 6.3 框架选择：原生 PyTorch vs. PyTorch Lightning
 
-- **原生 PyTorch：** 极其灵活，适合学习原理、魔改底层逻辑和编写极其非标准的网络架构。但在处理分布式训练、混合精度训练时，需要编写大量样板代码（Boilerplate Code），容易出错 。
+- 原生 PyTorch： 极其灵活，适合学习原理、魔改底层逻辑和编写极其非标准的网络架构。但在处理分布式训练、混合精度训练时，需要编写大量样板代码（Boilerplate Code），容易出错 。
     
-- **PyTorch Lightning：** 是一个轻量级的封装库，它将研究代码（模型定义）与工程代码（训练循环、多 GPU 分发、Checkpoint 保存）解耦。使用 Lightning 可以让代码结构更清晰，且只需修改一行标志位即可在 CPU/GPU/TPU 之间切换。对于标准化研究项目，推荐过渡到 Lightning 以提升迭代效率 。
+- PyTorch Lightning： 是一个轻量级的封装库，它将研究代码（模型定义）与工程代码（训练循环、多 GPU 分发、Checkpoint 保存）解耦。使用 Lightning 可以让代码结构更清晰，且只需修改一行标志位即可在 CPU/GPU/TPU 之间切换。对于标准化研究项目，推荐过渡到 Lightning 以提升迭代效率 。
     
 
 ---
@@ -227,9 +227,9 @@ Autograd 是 PyTorch 的核心组件，它负责记录对张量执行的所有�
 
 PyTorch 2.0 引入了 `torch.compile`，这是一个可选的即时编译器（JIT）。它通过图捕获（Graph Capture）、图融合（Kernel Fusion）等技术，在保持 Python 灵活性的同时，显著提升推理和训练速度。
 
-- **工作原理：** `torch.compile` 将 PyTorch 程序分解为图获取、图降级（Lowering）和图编译三个阶段。它使用 TorchDynamo 动态捕获计算图，并使用 Triton 生成高效的 GPU 内核 。
+- 工作原理： `torch.compile` 将 PyTorch 程序分解为图获取、图降级（Lowering）和图编译三个阶段。它使用 TorchDynamo 动态捕获计算图，并使用 Triton 生成高效的 GPU 内核 。
     
-- **编译模式：** 提供了多种模式以平衡编译时间与执行效率。`mode="reduce-overhead"` 适合小 Batch 的推理场景，而 `mode="max-autotune"` 则通过更长时间的编译优化来换取最快的执行速度 。
+- 编译模式： 提供了多种模式以平衡编译时间与执行效率。`mode="reduce-overhead"` 适合小 Batch 的推理场景，而 `mode="max-autotune"` 则通过更长时间的编译优化来换取最快的执行速度 。
     
 
 ---
@@ -240,36 +240,33 @@ PyTorch 2.0 引入了 `torch.compile`，这是一个可选的即时编译器（J
 
 ### 第一阶段：基石构建（4-6 周）
 
-- **核心任务：** 掌握 Python 高级语法、NumPy 向量化操作、微积分与线性代数基础。
+- 核心任务： 掌握 Python 高级语法、NumPy 向量化操作、微积分与线性代数基础。
     
-- **推荐资源：**
-    
-    - **数学：** MIT Linear Algebra (Gilbert Strang), Coursera "Mathematics for Machine Learning".
+- 推荐资源：    
+    - 数学： MIT Linear Algebra (Gilbert Strang), Coursera "Mathematics for Machine Learning".
         
-    - **Python：** 专注于 NumPy 和 Pandas 的实战课程，如 IBM "Data Analysis with Python".
+    - Python： 专注于 NumPy 和 Pandas 的实战课程，如 IBM "Data Analysis with Python".
         
-    - **理论入门：** Andrew Ng 的 "Deep Learning Specialization"（Coursera），自底向上理解反向传播推导.
+    - 理论入门： Andrew Ng 的 "Deep Learning Specialization"（Coursera），自底向上理解反向传播推导.
         
 
 ### 第二阶段：框架入门（4 周）
 
-- **核心任务：** 熟悉 PyTorch 核心 API，理解 Tensor, Autograd, Module, Optimizer。
+- 核心任务： 熟悉 PyTorch 核心 API，理解 Tensor, Autograd, Module, Optimizer。
     
-- **推荐资源：**
-    
-    - **官方教程：** PyTorch 官方文档中的 "Deep Learning with PyTorch: A 60 Minute Blitz".
+- 推荐资源：    
+    - 官方教程： PyTorch 官方文档中的 "Deep Learning with PyTorch: A 60 Minute Blitz".
         
-    - **实战课程：** fast.ai 的 "Practical Deep Learning for Coders"。Fast.ai 采用自顶向下（Top-Down）的教学法，先让代码跑起来，再深入理论，非常适合培养代码感觉.
+    - 实战课程： fast.ai 的 "Practical Deep Learning for Coders"。Fast.ai 采用自顶向下（Top-Down）的教学法，先让代码跑起来，再深入理论，非常适合培养代码感觉.
         
-    - **书籍：** 《Deep Learning with PyTorch》提供了系统的框架介绍。
+    - 书籍： 《Deep Learning with PyTorch》提供了系统的框架介绍。
         
 
 ### 第三阶段：论文复现与工程进阶（8-10 周）
 
-- **核心任务：** 阅读经典论文（如 ResNet, Transformer, GAN），并尝试从零复现。学习使用 TensorBoard/WandB 管理实验。
+- 核心任务： 阅读经典论文（如 ResNet, Transformer, GAN），并尝试从零复现。学习使用 TensorBoard/WandB 管理实验。
     
-- **推荐项目：**
-    
+- 推荐项目：    
     - 手动实现 MNIST 数字识别（不使用现成模型）。
         
     - 复现 "Attention is All You Need" 中的 Transformer 结构.
@@ -279,9 +276,13 @@ PyTorch 2.0 引入了 `torch.compile`，这是一个可选的即时编译器（J
 
 ### 第四阶段：专家级优化（持续）
 
-- **核心任务：** 掌握分布式训练、自定义 CUDA 算子、PyTorch 2.0 编译优化、模型量化与部署。
+- 核心任务： 掌握分布式训练、自定义 CUDA 算子、PyTorch 2.0 编译优化、模型量化与部署。
     
-- **行动：** 深入研究 PyTorch 源码，关注 PyTorch 官方论坛与开发者会议，跟踪最新的编译技术 。
+- 行动： 深入研究 PyTorch 源码，关注 PyTorch 官方论坛与开发者会议，跟踪最新的编译技术 。
     
 
 通过这一系统的学习路径，学习者将不仅仅是一个 API 的调用者，而是能够理解数据在硅基芯片上流动的本质，具备设计、调试并优化复杂神经网络系统的专家级能力。
+
+---
+
+<font color="#2ecc71">✅ 已格式化</font>
